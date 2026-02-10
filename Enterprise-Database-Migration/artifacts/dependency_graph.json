@@ -1,0 +1,606 @@
+{
+  "nodes": [
+    {
+      "id": "table:actor",
+      "name": "actor",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "table:address",
+      "name": "address",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "table:category",
+      "name": "category",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "table:city",
+      "name": "city",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "table:country",
+      "name": "country",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "table:customer",
+      "name": "customer",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "table:film",
+      "name": "film",
+      "type": "table",
+      "complexity": "medium"
+    },
+    {
+      "id": "table:film_actor",
+      "name": "film_actor",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "table:film_category",
+      "name": "film_category",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "table:film_text",
+      "name": "film_text",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "table:inventory",
+      "name": "inventory",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "table:language",
+      "name": "language",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "table:payment",
+      "name": "payment",
+      "type": "table",
+      "complexity": "medium"
+    },
+    {
+      "id": "table:rental",
+      "name": "rental",
+      "type": "table",
+      "complexity": "medium"
+    },
+    {
+      "id": "table:staff",
+      "name": "staff",
+      "type": "table",
+      "complexity": "medium"
+    },
+    {
+      "id": "table:store",
+      "name": "store",
+      "type": "table",
+      "complexity": "low"
+    },
+    {
+      "id": "view:customer_list",
+      "name": "customer_list",
+      "type": "view",
+      "complexity": "medium"
+    },
+    {
+      "id": "view:film_list",
+      "name": "film_list",
+      "type": "view",
+      "complexity": "medium"
+    },
+    {
+      "id": "view:nicer_but_slower_film_list",
+      "name": "nicer_but_slower_film_list",
+      "type": "view",
+      "complexity": "medium"
+    },
+    {
+      "id": "view:staff_list",
+      "name": "staff_list",
+      "type": "view",
+      "complexity": "medium"
+    },
+    {
+      "id": "view:sales_by_store",
+      "name": "sales_by_store",
+      "type": "view",
+      "complexity": "medium"
+    },
+    {
+      "id": "view:sales_by_film_category",
+      "name": "sales_by_film_category",
+      "type": "view",
+      "complexity": "medium"
+    },
+    {
+      "id": "view:actor_info",
+      "name": "actor_info",
+      "type": "view",
+      "complexity": "medium"
+    },
+    {
+      "id": "procedure:get_customer_balance",
+      "name": "get_customer_balance",
+      "type": "function",
+      "complexity": "high"
+    },
+    {
+      "id": "procedure:inventory_held_by_customer",
+      "name": "inventory_held_by_customer",
+      "type": "function",
+      "complexity": "medium"
+    },
+    {
+      "id": "procedure:inventory_in_stock",
+      "name": "inventory_in_stock",
+      "type": "function",
+      "complexity": "high"
+    },
+    {
+      "id": "procedure:film_in_stock",
+      "name": "film_in_stock",
+      "type": "procedure",
+      "complexity": "medium"
+    },
+    {
+      "id": "procedure:film_not_in_stock",
+      "name": "film_not_in_stock",
+      "type": "procedure",
+      "complexity": "medium"
+    },
+    {
+      "id": "procedure:rewards_report",
+      "name": "rewards_report",
+      "type": "procedure",
+      "complexity": "high"
+    },
+    {
+      "id": "trigger:ins_film",
+      "name": "ins_film",
+      "type": "trigger",
+      "complexity": "medium"
+    },
+    {
+      "id": "trigger:upd_film",
+      "name": "upd_film",
+      "type": "trigger",
+      "complexity": "medium"
+    },
+    {
+      "id": "trigger:del_film",
+      "name": "del_film",
+      "type": "trigger",
+      "complexity": "medium"
+    },
+    {
+      "id": "trigger:customer_create_date",
+      "name": "customer_create_date",
+      "type": "trigger",
+      "complexity": "medium"
+    },
+    {
+      "id": "trigger:payment_date",
+      "name": "payment_date",
+      "type": "trigger",
+      "complexity": "medium"
+    },
+    {
+      "id": "trigger:rental_date",
+      "name": "rental_date",
+      "type": "trigger",
+      "complexity": "medium"
+    }
+  ],
+  "edges": [
+    {
+      "from_id": "table:address",
+      "to_id": "table:city",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:city",
+      "to_id": "table:country",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:customer",
+      "to_id": "table:address",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:customer",
+      "to_id": "table:store",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:film",
+      "to_id": "table:language",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:film",
+      "to_id": "table:language",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:film_actor",
+      "to_id": "table:actor",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:film_actor",
+      "to_id": "table:film",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:film_category",
+      "to_id": "table:category",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:film_category",
+      "to_id": "table:film",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:inventory",
+      "to_id": "table:film",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:inventory",
+      "to_id": "table:store",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:payment",
+      "to_id": "table:customer",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:payment",
+      "to_id": "table:rental",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:payment",
+      "to_id": "table:staff",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:rental",
+      "to_id": "table:customer",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:rental",
+      "to_id": "table:inventory",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:rental",
+      "to_id": "table:staff",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:staff",
+      "to_id": "table:address",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:staff",
+      "to_id": "table:store",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:store",
+      "to_id": "table:address",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "table:store",
+      "to_id": "table:staff",
+      "edge_type": "foreign_key"
+    },
+    {
+      "from_id": "view:customer_list",
+      "to_id": "table:address",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:customer_list",
+      "to_id": "table:city",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:customer_list",
+      "to_id": "table:country",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:customer_list",
+      "to_id": "table:customer",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:customer_list",
+      "to_id": "table:store",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:film_list",
+      "to_id": "table:actor",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:film_list",
+      "to_id": "table:category",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:film_list",
+      "to_id": "table:film",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:film_list",
+      "to_id": "table:film_actor",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:film_list",
+      "to_id": "table:film_category",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:film_list",
+      "to_id": "table:rental",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:nicer_but_slower_film_list",
+      "to_id": "table:actor",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:nicer_but_slower_film_list",
+      "to_id": "table:category",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:nicer_but_slower_film_list",
+      "to_id": "table:film",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:nicer_but_slower_film_list",
+      "to_id": "table:film_actor",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:nicer_but_slower_film_list",
+      "to_id": "table:film_category",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:nicer_but_slower_film_list",
+      "to_id": "table:rental",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:staff_list",
+      "to_id": "table:address",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:staff_list",
+      "to_id": "table:city",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:staff_list",
+      "to_id": "table:country",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:staff_list",
+      "to_id": "table:staff",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:staff_list",
+      "to_id": "table:store",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_store",
+      "to_id": "table:address",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_store",
+      "to_id": "table:city",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_store",
+      "to_id": "table:country",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_store",
+      "to_id": "table:inventory",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_store",
+      "to_id": "table:payment",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_store",
+      "to_id": "table:rental",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_store",
+      "to_id": "table:staff",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_store",
+      "to_id": "table:store",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_film_category",
+      "to_id": "table:category",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_film_category",
+      "to_id": "table:film",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_film_category",
+      "to_id": "table:film_category",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_film_category",
+      "to_id": "table:inventory",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_film_category",
+      "to_id": "table:payment",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:sales_by_film_category",
+      "to_id": "table:rental",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:actor_info",
+      "to_id": "table:actor",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:actor_info",
+      "to_id": "table:category",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:actor_info",
+      "to_id": "table:film",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:actor_info",
+      "to_id": "table:film_actor",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "view:actor_info",
+      "to_id": "table:film_category",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "trigger:ins_film",
+      "to_id": "table:film",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "trigger:upd_film",
+      "to_id": "table:film",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "trigger:del_film",
+      "to_id": "table:film",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "trigger:customer_create_date",
+      "to_id": "table:customer",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "trigger:payment_date",
+      "to_id": "table:payment",
+      "edge_type": "reference"
+    },
+    {
+      "from_id": "trigger:rental_date",
+      "to_id": "table:rental",
+      "edge_type": "reference"
+    }
+  ],
+  "migration_order": [
+    "table:actor",
+    "table:category",
+    "table:country",
+    "table:film_text",
+    "table:language",
+    "procedure:get_customer_balance",
+    "procedure:inventory_held_by_customer",
+    "procedure:inventory_in_stock",
+    "procedure:film_in_stock",
+    "procedure:film_not_in_stock",
+    "procedure:rewards_report",
+    "table:city",
+    "table:film",
+    "table:address",
+    "table:film_actor",
+    "table:film_category",
+    "trigger:ins_film",
+    "trigger:upd_film",
+    "trigger:del_film",
+    "view:actor_info",
+    "table:customer",
+    "table:inventory",
+    "table:payment",
+    "table:rental",
+    "table:staff",
+    "table:store",
+    "view:customer_list",
+    "view:film_list",
+    "view:nicer_but_slower_film_list",
+    "view:staff_list",
+    "view:sales_by_store",
+    "view:sales_by_film_category",
+    "trigger:customer_create_date",
+    "trigger:payment_date",
+    "trigger:rental_date"
+  ],
+  "_artifact_metadata": {
+<<<<<<< HEAD
+    "created_at": "2026-02-02T15:10:54.375864",
+=======
+    "created_at": "2026-01-27T15:50:43.328824",
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+    "version": "1.0"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "procedures": 3,
+  "functions": 3,
+  "triggers": 6,
+  "conversions": [
+    {
+      "name": "get_customer_balance",
+      "procedure_type": "function",
+      "source_code": "CREATE DEFINER=`root`@`localhost` FUNCTION `get_customer_balance`(p_customer_id INT, p_effective_date DATETIME) RETURNS decimal(5,2)\n    READS SQL DATA\n    DETERMINISTIC\nBEGIN\n\n       #OK, WE NEED TO CALCULATE THE CURRENT BALANCE GIVEN A CUSTOMER_ID AND A DATE\n       #THAT WE WANT THE BALANCE TO BE EFFECTIVE FOR. THE BALANCE IS:\n       #   1) RENTAL FEES FOR ALL PREVIOUS RENTALS\n       #   2) ONE DOLLAR FOR EVERY DAY THE PREVIOUS RENTALS ARE OVERDUE\n       #   3) IF A FILM IS MORE THAN RENTAL_DURATION * 2 OVERDUE, CHARGE THE REPLACEMENT_COST\n       #   4) SUBTRACT ALL PAYMENTS MADE BEFORE THE DATE SPECIFIED\n\n  DECLARE v_rentfees DECIMAL(5,2); #FEES PAID TO RENT THE VIDEOS INITIALLY\n  DECLARE v_overfees INTEGER;      #LATE FEES FOR PRIOR RENTALS\n  DECLARE v_payments DECIMAL(5,2); #SUM OF PAYMENTS MADE PREVIOUSLY\n\n  SELECT IFNULL(SUM(film.rental_rate),0) INTO v_rentfees\n    FROM film, inventory, rental\n    WHERE film.film_id = inventory.film_id\n      AND inventory.inventory_id = rental.inventory_id\n      AND rental.rental_date <= p_effective_date\n      AND rental.customer_id = p_customer_id;\n\n  SELECT IFNULL(SUM(IF((TO_DAYS(rental.return_date) - TO_DAYS(rental.rental_date)) > film.rental_duration,\n        ((TO_DAYS(rental.return_date) - TO_DAYS(rental.rental_date)) - film.rental_duration),0)),0) INTO v_overfees\n    FROM rental, inventory, film\n    WHERE film.film_id = inventory.film_id\n      AND inventory.inventory_id = rental.inventory_id\n      AND rental.rental_date <= p_effective_date\n      AND rental.customer_id = p_customer_id;\n\n\n  SELECT IFNULL(SUM(payment.amount),0) INTO v_payments\n    FROM payment\n\n    WHERE payment.payment_date <= p_effective_date\n    AND payment.customer_id = p_customer_id;\n\n  RETURN v_rentfees + v_overfees - v_payments;\nEND",
+<<<<<<< HEAD
+      "target_code": "CREATE OR REPLACE FUNCTION get_customer_balance(p_customer_id INT, p_effective_date TIMESTAMP)\nRETURNS NUMERIC(5,2) AS $$\nDECLARE\n    v_rentfees  NUMERIC(5,2) := 0;\n    v_overfees  INTEGER      := 0;\n    v_payments  NUMERIC(5,2) := 0;\nBEGIN\n    -- Rental fees for all previous rentals\n    SELECT COALESCE(SUM(film.rental_rate),0)\n    INTO v_rentfees\n    FROM film\n    JOIN inventory ON film.film_id = inventory.film_id\n    JOIN rental    ON inventory.inventory_id = rental.inventory_id\n    WHERE rental.rental_date <= p_effective_date\n      AND rental.customer_id = p_customer_id;\n\n    -- One dollar for every day the previous rentals are overdue\n    SELECT COALESCE(SUM(\n               GREATEST( (rental.return_date::date - rental.rental_date::date) - film.rental_duration, 0)\n           ),0)\n    INTO v_overfees\n    FROM rental\n    JOIN inventory ON inventory.inventory_id = rental.inventory_id\n    JOIN film     ON film.film_id = inventory.film_id\n    WHERE rental.rental_date <= p_effective_date\n      AND rental.customer_id = p_customer_id\n      AND rental.return_date IS NOT NULL;\n\n    -- Subtract all payments made before the effective date\n    SELECT COALESCE(SUM(payment.amount),0)\n    INTO v_payments\n    FROM payment\n    WHERE payment.payment_date <= p_effective_date\n      AND payment.customer_id = p_customer_id;\n\n    RETURN v_rentfees + v_overfees - v_payments;\nEND;\n$$ LANGUAGE plpgsql;",
+=======
+      "target_code": "CREATE OR REPLACE FUNCTION get_customer_balance(\n    p_customer_id INTEGER,\n    p_effective_date TIMESTAMP\n) RETURNS NUMERIC(5,2) AS $$\nDECLARE\n    v_rentfees  NUMERIC(5,2);\n    v_overfees  INTEGER;\n    v_payments  NUMERIC(5,2);\nBEGIN\n    -- Rental fees for all previous rentals\n    SELECT COALESCE(SUM(f.rental_rate), 0)\n      INTO v_rentfees\n    FROM film f\n    JOIN inventory i ON f.film_id = i.film_id\n    JOIN rental r ON i.inventory_id = r.inventory_id\n    WHERE r.rental_date <= p_effective_date\n      AND r.customer_id = p_customer_id;\n\n    -- One dollar for every day the previous rentals are overdue\n    SELECT COALESCE(SUM(\n               GREATEST(\n                   (r.return_date::date - r.rental_date::date) - f.rental_duration,\n                   0\n               )\n           ), 0)\n      INTO v_overfees\n    FROM rental r\n    JOIN inventory i ON i.inventory_id = r.inventory_id\n    JOIN film f ON f.film_id = i.film_id\n    WHERE r.rental_date <= p_effective_date\n      AND r.customer_id = p_customer_id\n      AND r.return_date IS NOT NULL;\n\n    -- Subtract all payments made before the specified date\n    SELECT COALESCE(SUM(p.amount), 0)\n      INTO v_payments\n    FROM payment p\n    WHERE p.payment_date <= p_effective_date\n      AND p.customer_id = p_customer_id;\n\n    RETURN v_rentfees + v_overfees - v_payments;\nEND;\n$$ LANGUAGE plpgsql;",
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "conversion_notes": "Converted function to PL/pgSQL function",
+      "file_path": "artifacts\\procedures\\get_customer_balance.sql",
+      "status": "pending"
+    },
+    {
+      "name": "inventory_held_by_customer",
+      "procedure_type": "function",
+      "source_code": "CREATE DEFINER=`root`@`localhost` FUNCTION `inventory_held_by_customer`(p_inventory_id INT) RETURNS int\n    READS SQL DATA\nBEGIN\n  DECLARE v_customer_id INT;\n  DECLARE EXIT HANDLER FOR NOT FOUND RETURN NULL;\n\n  SELECT customer_id INTO v_customer_id\n  FROM rental\n  WHERE return_date IS NULL\n  AND inventory_id = p_inventory_id;\n\n  RETURN v_customer_id;\nEND",
+<<<<<<< HEAD
+      "target_code": "CREATE OR REPLACE FUNCTION inventory_held_by_customer(p_inventory_id INT)\nRETURNS INTEGER AS $$\nDECLARE\n    v_customer_id INTEGER;\nBEGIN\n    SELECT r.customer_id\n    INTO v_customer_id\n    FROM rental r\n    WHERE r.return_date IS NULL\n      AND r.inventory_id = p_inventory_id\n    LIMIT 1;\n\n    RETURN v_customer_id;\nEXCEPTION\n    WHEN NO_DATA_FOUND THEN\n        RETURN NULL;\nEND;\n$$ LANGUAGE plpgsql;",
+=======
+      "target_code": "CREATE OR REPLACE FUNCTION inventory_held_by_customer(p_inventory_id INTEGER)\nRETURNS INTEGER AS $$\nDECLARE\n    v_customer_id INTEGER;\nBEGIN\n    SELECT r.customer_id INTO v_customer_id\n    FROM rental r\n    WHERE r.return_date IS NULL\n      AND r.inventory_id = p_inventory_id\n    LIMIT 1;\n\n    IF NOT FOUND THEN\n        RETURN NULL;\n    END IF;\n\n    RETURN v_customer_id;\nEND;\n$$ LANGUAGE plpgsql;",
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "conversion_notes": "Converted function to PL/pgSQL function",
+      "file_path": "artifacts\\procedures\\inventory_held_by_customer.sql",
+      "status": "pending"
+    },
+    {
+      "name": "inventory_in_stock",
+      "procedure_type": "function",
+      "source_code": "CREATE DEFINER=`root`@`localhost` FUNCTION `inventory_in_stock`(p_inventory_id INT) RETURNS tinyint(1)\n    READS SQL DATA\nBEGIN\n    DECLARE v_rentals INT;\n    DECLARE v_out     INT;\n\n    #AN ITEM IS IN-STOCK IF THERE ARE EITHER NO ROWS IN THE rental TABLE\n    #FOR THE ITEM OR ALL ROWS HAVE return_date POPULATED\n\n    SELECT COUNT(*) INTO v_rentals\n    FROM rental\n    WHERE inventory_id = p_inventory_id;\n\n    IF v_rentals = 0 THEN\n      RETURN TRUE;\n    END IF;\n\n    SELECT COUNT(rental_id) INTO v_out\n    FROM inventory LEFT JOIN rental USING(inventory_id)\n    WHERE inventory.inventory_id = p_inventory_id\n    AND rental.return_date IS NULL;\n\n    IF v_out > 0 THEN\n      RETURN FALSE;\n    ELSE\n      RETURN TRUE;\n    END IF;\nEND",
+      "target_code": "CREATE OR REPLACE FUNCTION inventory_in_stock(p_inventory_id INT)\nRETURNS BOOLEAN AS $$\nDECLARE\n    v_rentals INT;\n    v_out INT;\nBEGIN\n    SELECT COUNT(*) INTO v_rentals\n    FROM rental\n    WHERE inventory_id = p_inventory_id;\n\n    IF v_rentals = 0 THEN\n        RETURN TRUE;\n    END IF;\n\n    SELECT COUNT(rental_id) INTO v_out\n    FROM inventory i\n    LEFT JOIN rental r USING (inventory_id)\n    WHERE i.inventory_id = p_inventory_id\n      AND r.return_date IS NULL;\n\n    IF v_out > 0 THEN\n        RETURN FALSE;\n    ELSE\n        RETURN TRUE;\n    END IF;\nEND;\n$$ LANGUAGE plpgsql;",
+      "conversion_notes": "Converted function to PL/pgSQL function",
+      "file_path": "artifacts\\procedures\\inventory_in_stock.sql",
+      "status": "pending"
+    },
+    {
+      "name": "film_in_stock",
+      "procedure_type": "procedure",
+      "source_code": "CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)\n    READS SQL DATA\nBEGIN\n     SELECT inventory_id\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND inventory_in_stock(inventory_id);\n\n     SELECT COUNT(*)\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND inventory_in_stock(inventory_id)\n     INTO p_film_count;\nEND",
+<<<<<<< HEAD
+      "target_code": "CREATE OR REPLACE FUNCTION film_in_stock(p_film_id INT, p_store_id INT)\nRETURNS INTEGER AS $$\nDECLARE\n    v_film_count INTEGER;\nBEGIN\n    PERFORM inventory_id\n    FROM inventory\n    WHERE film_id = p_film_id\n      AND store_id = p_store_id\n      AND inventory_in_stock(inventory_id);\n\n    SELECT COUNT(*) INTO v_film_count\n    FROM inventory\n    WHERE film_id = p_film_id\n      AND store_id = p_store_id\n      AND inventory_in_stock(inventory_id);\n\n    RETURN v_film_count;\nEND;\n$$ LANGUAGE plpgsql;",
+=======
+      "target_code": "CREATE OR REPLACE FUNCTION film_in_stock(p_film_id INT, p_store_id INT)\nRETURNS INTEGER AS $$\nDECLARE\n    v_film_count INTEGER;\nBEGIN\n    SELECT COUNT(*) INTO v_film_count\n    FROM inventory\n    WHERE film_id = p_film_id\n      AND store_id = p_store_id\n      AND inventory_in_stock(inventory_id);\n\n    RETURN v_film_count;\nEND;\n$$ LANGUAGE plpgsql;",
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "conversion_notes": "Converted procedure to PL/pgSQL function",
+      "file_path": "artifacts\\procedures\\film_in_stock.sql",
+      "status": "pending"
+    },
+    {
+      "name": "film_not_in_stock",
+      "procedure_type": "procedure",
+      "source_code": "CREATE DEFINER=`root`@`localhost` PROCEDURE `film_not_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)\n    READS SQL DATA\nBEGIN\n     SELECT inventory_id\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND NOT inventory_in_stock(inventory_id);\n\n     SELECT COUNT(*)\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND NOT inventory_in_stock(inventory_id)\n     INTO p_film_count;\nEND",
+<<<<<<< HEAD
+      "target_code": "CREATE OR REPLACE FUNCTION film_not_in_stock(p_film_id INT, p_store_id INT)\nRETURNS INTEGER AS $$\nDECLARE\n    v_film_count INTEGER;\nBEGIN\n    SELECT COUNT(*)\n    INTO v_film_count\n    FROM inventory\n    WHERE film_id = p_film_id\n      AND store_id = p_store_id\n      AND NOT inventory_in_stock(inventory_id);\n\n    RETURN v_film_count;\nEND;\n$$ LANGUAGE plpgsql;",
+=======
+      "target_code": "CREATE OR REPLACE FUNCTION film_not_in_stock(p_film_id INT, p_store_id INT)\nRETURNS INTEGER AS $$\nDECLARE\n    v_film_count INT;\nBEGIN\n    SELECT COUNT(*)\n    INTO v_film_count\n    FROM inventory\n    WHERE film_id = p_film_id\n      AND store_id = p_store_id\n      AND NOT inventory_in_stock(inventory_id);\n\n    RETURN v_film_count;\nEND;\n$$ LANGUAGE plpgsql;",
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "conversion_notes": "Converted procedure to PL/pgSQL function",
+      "file_path": "artifacts\\procedures\\film_not_in_stock.sql",
+      "status": "pending"
+    },
+    {
+      "name": "rewards_report",
+      "procedure_type": "procedure",
+      "source_code": "CREATE DEFINER=`root`@`localhost` PROCEDURE `rewards_report`(\n    IN min_monthly_purchases TINYINT UNSIGNED\n    , IN min_dollar_amount_purchased DECIMAL(10,2)\n    , OUT count_rewardees INT\n)\n    READS SQL DATA\n    COMMENT 'Provides a customizable report on best customers'\nproc: BEGIN\n\n    DECLARE last_month_start DATE;\n    DECLARE last_month_end DATE;\n\n    /* Some sanity checks... */\n    IF min_monthly_purchases = 0 THEN\n        SELECT 'Minimum monthly purchases parameter must be > 0';\n        LEAVE proc;\n    END IF;\n    IF min_dollar_amount_purchased = 0.00 THEN\n        SELECT 'Minimum monthly dollar amount purchased parameter must be > $0.00';\n        LEAVE proc;\n    END IF;\n\n    /* Determine start and end time periods */\n    SET last_month_start = DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH);\n    SET last_month_start = STR_TO_DATE(CONCAT(YEAR(last_month_start),'-',MONTH(last_month_start),'-01'),'%Y-%m-%d');\n    SET last_month_end = LAST_DAY(last_month_start);\n\n    /*\n        Create a temporary storage area for\n        Customer IDs.\n    */\n    CREATE TEMPORARY TABLE tmpCustomer (customer_id SMALLINT UNSIGNED NOT NULL PRIMARY KEY);\n\n    /*\n        Find all customers meeting the\n        monthly purchase requirements\n    */\n    INSERT INTO tmpCustomer (customer_id)\n    SELECT p.customer_id\n    FROM payment AS p\n    WHERE DATE(p.payment_date) BETWEEN last_month_start AND last_month_end\n    GROUP BY customer_id\n    HAVING SUM(p.amount) > min_dollar_amount_purchased\n    AND COUNT(customer_id) > min_monthly_purchases;\n\n    /* Populate OUT parameter with count of found customers */\n    SELECT COUNT(*) FROM tmpCustomer INTO count_rewardees;\n\n    /*\n        Output ALL customer information of matching rewardees.\n        Customize output as needed.\n    */\n    SELECT c.*\n    FROM tmpCustomer AS t\n    INNER JOIN customer AS c ON t.customer_id = c.customer_id;\n\n    /* Clean up */\n    DROP TABLE tmpCustomer;\nEND",
+<<<<<<< HEAD
+      "target_code": "CREATE OR REPLACE FUNCTION rewards_report(\n    min_monthly_purchases SMALLINT,\n    min_dollar_amount_purchased NUMERIC\n) RETURNS TABLE (\n    count_rewardees INTEGER,\n    customer_id SMALLINT,\n    store_id SMALLINT,\n    first_name VARCHAR,\n    last_name VARCHAR,\n    email VARCHAR,\n    address_id SMALLINT,\n    active BOOLEAN,\n    create_date TIMESTAMP,\n    last_update TIMESTAMP\n) AS $$\nDECLARE\n    last_month_start DATE;\n    last_month_end   DATE;\nBEGIN\n    IF min_monthly_purchases = 0 THEN\n        RAISE EXCEPTION 'Minimum monthly purchases parameter must be > 0';\n    END IF;\n\n    IF min_dollar_amount_purchased = 0 THEN\n        RAISE EXCEPTION 'Minimum monthly dollar amount purchased parameter must be > $0.00';\n    END IF;\n\n    -- Determine start and end of the previous month\n    last_month_start := date_trunc('month', current_date - interval '1 month')::date;\n    last_month_end   := (date_trunc('month', current_date) - interval '1 day')::date;\n\n    RETURN QUERY\n    WITH qualified_customers AS (\n        SELECT p.customer_id\n        FROM payment p\n        WHERE p.payment_date::date BETWEEN last_month_start AND last_month_end\n        GROUP BY p.customer_id\n        HAVING SUM(p.amount) > min_dollar_amount_purchased\n           AND COUNT(*) > min_monthly_purchases\n    ),\n    cnt AS (\n        SELECT COUNT(*) AS cnt FROM qualified_customers\n    )\n    SELECT\n        cnt.cnt,\n        c.customer_id,\n        c.store_id,\n        c.first_name,\n        c.last_name,\n        c.email,\n        c.address_id,\n        c.active,\n        c.create_date,\n        c.last_update\n    FROM qualified_customers qc\n    JOIN customer c ON c.customer_id = qc.customer_id\n    CROSS JOIN cnt;\nEND;\n$$ LANGUAGE plpgsql;",
+=======
+      "target_code": "CREATE OR REPLACE FUNCTION rewards_report(\n    min_monthly_purchases SMALLINT,\n    min_dollar_amount_purchased NUMERIC\n)\nRETURNS TABLE (\n    count_rewardees INTEGER,\n    customer_id SMALLINT,\n    store_id SMALLINT,\n    first_name VARCHAR,\n    last_name VARCHAR,\n    email VARCHAR,\n    address_id SMALLINT,\n    active BOOLEAN,\n    create_date TIMESTAMP,\n    last_update TIMESTAMP\n) AS $$\nDECLARE\n    last_month_start DATE;\n    last_month_end DATE;\nBEGIN\n    IF min_monthly_purchases = 0 THEN\n        RAISE EXCEPTION 'Minimum monthly purchases parameter must be > 0';\n    END IF;\n    IF min_dollar_amount_purchased = 0 THEN\n        RAISE EXCEPTION 'Minimum monthly dollar amount purchased parameter must be > $0.00';\n    END IF;\n\n    -- Determine start of previous month (first day)\n    last_month_start := (CURRENT_DATE - INTERVAL '1 month')::date;\n    last_month_start := make_date(\n        EXTRACT(YEAR FROM last_month_start)::int,\n        EXTRACT(MONTH FROM last_month_start)::int,\n        1\n    );\n\n    -- End of that month (last day)\n    last_month_end := (date_trunc('month', last_month_start) + INTERVAL '1 month - 1 day')::date;\n\n    RETURN QUERY\n    WITH qualified AS (\n        SELECT p.customer_id\n        FROM payment p\n        WHERE p.payment_date::date BETWEEN last_month_start AND last_month_end\n        GROUP BY p.customer_id\n        HAVING SUM(p.amount) > min_dollar_amount_purchased\n           AND COUNT(*) > min_monthly_purchases\n    ),\n    cnt AS (\n        SELECT COUNT(*) AS cnt FROM qualified\n    )\n    SELECT\n        cnt.cnt,\n        c.customer_id,\n        c.store_id,\n        c.first_name,\n        c.last_name,\n        c.email,\n        c.address_id,\n        c.active,\n        c.create_date,\n        c.last_update\n    FROM qualified q\n    JOIN customer c ON c.customer_id = q.customer_id\n    CROSS JOIN cnt;\nEND;\n$$ LANGUAGE plpgsql;",
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "conversion_notes": "Converted procedure to PL/pgSQL function",
+      "file_path": "artifacts\\procedures\\rewards_report.sql",
+      "status": "pending"
+    },
+    {
+      "name": "ins_film",
+      "procedure_type": "trigger",
+      "source_code": "BEGIN\n    INSERT INTO film_text (film_id, title, description)\n        VALUES (new.film_id, new.title, new.description);\n  END",
+      "target_code": "CREATE OR REPLACE FUNCTION ins_film_fn()\nRETURNS trigger AS $$\nBEGIN\n    INSERT INTO film_text (film_id, title, description)\n    VALUES (NEW.film_id, NEW.title, NEW.description);\n    RETURN NULL;\nEND;\n$$ LANGUAGE plpgsql;\n\nCREATE TRIGGER ins_film\nAFTER INSERT ON film\nFOR EACH ROW\nEXECUTE FUNCTION ins_film_fn();",
+      "conversion_notes": "Converted trigger to PL/pgSQL",
+      "file_path": "artifacts\\procedures\\trigger_ins_film.sql",
+      "status": "pending"
+    },
+    {
+      "name": "upd_film",
+      "procedure_type": "trigger",
+      "source_code": "BEGIN\n    IF (old.title != new.title) OR (old.description != new.description) OR (old.film_id != new.film_id)\n    THEN\n        UPDATE film_text\n            SET title=new.title,\n                description=new.description,\n                film_id=new.film_id\n        WHERE film_id=old.film_id;\n    END IF;\n  END",
+      "target_code": "CREATE OR REPLACE FUNCTION upd_film_fn()\nRETURNS trigger AS $$\nBEGIN\n    IF (OLD.title IS DISTINCT FROM NEW.title)\n       OR (OLD.description IS DISTINCT FROM NEW.description)\n       OR (OLD.film_id IS DISTINCT FROM NEW.film_id) THEN\n        UPDATE film_text\n           SET title = NEW.title,\n               description = NEW.description,\n               film_id = NEW.film_id\n         WHERE film_id = OLD.film_id;\n    END IF;\n    RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n\nDROP TRIGGER IF EXISTS upd_film ON film;\n\nCREATE TRIGGER upd_film\nAFTER UPDATE ON film\nFOR EACH ROW\nEXECUTE FUNCTION upd_film_fn();",
+      "conversion_notes": "Converted trigger to PL/pgSQL",
+      "file_path": "artifacts\\procedures\\trigger_upd_film.sql",
+      "status": "pending"
+    },
+    {
+      "name": "del_film",
+      "procedure_type": "trigger",
+      "source_code": "BEGIN\n    DELETE FROM film_text WHERE film_id = old.film_id;\n  END",
+      "target_code": "CREATE OR REPLACE FUNCTION del_film_fn()\nRETURNS trigger AS $$\nBEGIN\n    DELETE FROM film_text WHERE film_id = OLD.film_id;\n    RETURN NULL;\nEND;\n$$ LANGUAGE plpgsql;\n\nCREATE TRIGGER del_film\nAFTER DELETE ON film\nFOR EACH ROW\nEXECUTE FUNCTION del_film_fn();",
+      "conversion_notes": "Converted trigger to PL/pgSQL",
+      "file_path": "artifacts\\procedures\\trigger_del_film.sql",
+      "status": "pending"
+    },
+    {
+      "name": "customer_create_date",
+      "procedure_type": "trigger",
+      "source_code": "SET NEW.create_date = NOW()",
+      "target_code": "CREATE OR REPLACE FUNCTION customer_create_date_fn()\nRETURNS trigger AS $$\nBEGIN\n    NEW.create_date := now();\n    RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n\nCREATE TRIGGER customer_create_date\nBEFORE INSERT ON customer\nFOR EACH ROW\nEXECUTE FUNCTION customer_create_date_fn();",
+      "conversion_notes": "Converted trigger to PL/pgSQL",
+      "file_path": "artifacts\\procedures\\trigger_customer_create_date.sql",
+      "status": "pending"
+    },
+    {
+      "name": "payment_date",
+      "procedure_type": "trigger",
+      "source_code": "SET NEW.payment_date = NOW()",
+      "target_code": "CREATE OR REPLACE FUNCTION set_payment_date()\nRETURNS trigger AS $$\nBEGIN\n    NEW.payment_date := NOW();\n    RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n\nCREATE TRIGGER payment_date\nBEFORE INSERT ON payment\nFOR EACH ROW\nEXECUTE FUNCTION set_payment_date();",
+      "conversion_notes": "Converted trigger to PL/pgSQL",
+      "file_path": "artifacts\\procedures\\trigger_payment_date.sql",
+      "status": "pending"
+    },
+    {
+      "name": "rental_date",
+      "procedure_type": "trigger",
+      "source_code": "SET NEW.rental_date = NOW()",
+      "target_code": "CREATE OR REPLACE FUNCTION rental_date_trigger()\nRETURNS trigger AS $$\nBEGIN\n    NEW.rental_date := NOW();\n    RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n\nCREATE TRIGGER rental_date\nBEFORE INSERT ON rental\nFOR EACH ROW\nEXECUTE FUNCTION rental_date_trigger();",
+      "conversion_notes": "Converted trigger to PL/pgSQL",
+      "file_path": "artifacts\\procedures\\trigger_rental_date.sql",
+      "status": "pending"
+    }
+  ],
+  "_artifact_metadata": {
+<<<<<<< HEAD
+    "created_at": "2026-02-02T15:16:22.496075",
+=======
+    "created_at": "2026-01-27T15:54:01.966837",
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+    "version": "1.0"
+  }
+}

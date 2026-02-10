@@ -1,0 +1,24 @@
+{
+  "status": "success",
+  "started_at": "2026-01-27T15:50:42.955198",
+  "completed_at": null,
+  "tables_migrated": 25,
+  "procedures_migrated": 12,
+  "data_rows_migrated": 47268,
+  "validation_passed": true,
+  "errors_count": 0,
+  "artifact_paths": {
+    "schema_metadata": "artifacts\\schema_metadata.json",
+    "dependency_graph": "artifacts\\dependency_graph.json",
+    "blueprints": "artifacts\\blueprints",
+    "transformed_ddl": "artifacts\\transformed_ddl.json",
+    "converted_procedures": "artifacts\\converted_procedures.json",
+    "sandbox_results": "artifacts\\sandbox_results.json",
+    "validation_report": "artifacts\\validation_report.json",
+    "data_migration": "artifacts\\data_migration_results.json"
+  },
+  "_artifact_metadata": {
+    "created_at": "2026-01-27T15:54:31.965966",
+    "version": "1.0"
+  }
+}

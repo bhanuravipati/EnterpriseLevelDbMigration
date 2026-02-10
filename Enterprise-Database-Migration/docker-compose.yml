@@ -1,0 +1,72 @@
+services:
+  mysql_source:
+    image: mysql:8.0
+    container_name: migration_mysql_source
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: sakila
+      # MYSQL_DATABASE: world
+      # MYSQL_DATABASE: airportdb
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./data/mysql_sakila:/docker-entrypoint-initdb.d
+      # - ./data/world-db:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - migration_network
+
+  postgres_target:
+    image: postgres:16
+    container_name: migration_postgres_target
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespass
+      POSTGRES_DB: sakila_pg
+      # POSTGRES_DB: world_pg
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_target_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - migration_network
+
+  postgres_sandbox:
+    image: postgres:16
+    container_name: migration_postgres_sandbox
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespass
+      POSTGRES_DB: sandbox
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_sandbox_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - migration_network
+
+volumes:
+  mysql_data:
+  postgres_target_data:
+  postgres_sandbox_data:
+
+networks:
+  migration_network:
+    driver: bridge

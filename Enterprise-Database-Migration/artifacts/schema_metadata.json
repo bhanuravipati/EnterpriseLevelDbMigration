@@ -1,0 +1,1715 @@
+{
+  "database_name": "sakila",
+  "database_type": "mysql",
+<<<<<<< HEAD
+  "extracted_at": "2026-02-02T15:10:54.360622",
+=======
+  "extracted_at": "2026-01-27T15:50:43.319729",
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+  "tables": [
+    {
+      "name": "actor",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "actor_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR(45)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR(45)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "actor_id"
+      ],
+      "indexes": [
+        {
+          "name": "idx_actor_last_name",
+          "columns": [
+            "last_name"
+          ],
+          "unique": false
+        }
+      ],
+      "foreign_keys": [],
+      "constraints": [],
+      "row_count": 200
+    },
+    {
+      "name": "address",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "address_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "address",
+          "type": "VARCHAR(50)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "address2",
+          "type": "VARCHAR(50)",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "district",
+          "type": "VARCHAR(20)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "city_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "postal_code",
+          "type": "VARCHAR(10)",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR(20)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "location",
+          "type": "NULL",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "address_id"
+      ],
+      "indexes": [
+        {
+          "name": "idx_fk_city_id",
+          "columns": [
+            "city_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_location",
+          "columns": [
+            "location"
+          ],
+          "unique": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "fk_address_city",
+          "columns": [
+            "city_id"
+          ],
+          "referred_table": "city",
+          "referred_columns": [
+            "city_id"
+          ]
+        }
+      ],
+      "constraints": [],
+      "row_count": 603
+    },
+    {
+      "name": "category",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "category_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(25)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "category_id"
+      ],
+      "indexes": [],
+      "foreign_keys": [],
+      "constraints": [],
+      "row_count": 16
+    },
+    {
+      "name": "city",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "city_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR(50)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "country_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "city_id"
+      ],
+      "indexes": [
+        {
+          "name": "idx_fk_country_id",
+          "columns": [
+            "country_id"
+          ],
+          "unique": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "fk_city_country",
+          "columns": [
+            "country_id"
+          ],
+          "referred_table": "country",
+          "referred_columns": [
+            "country_id"
+          ]
+        }
+      ],
+      "constraints": [],
+      "row_count": 600
+    },
+    {
+      "name": "country",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "country_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR(50)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "country_id"
+      ],
+      "indexes": [],
+      "foreign_keys": [],
+      "constraints": [],
+      "row_count": 109
+    },
+    {
+      "name": "customer",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "store_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR(45)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR(45)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR(50)",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "address_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "active",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": "'1'",
+          "autoincrement": false
+        },
+        {
+          "name": "create_date",
+          "type": "DATETIME",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": true,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "customer_id"
+      ],
+      "indexes": [
+        {
+          "name": "idx_fk_address_id",
+          "columns": [
+            "address_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_fk_store_id",
+          "columns": [
+            "store_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_last_name",
+          "columns": [
+            "last_name"
+          ],
+          "unique": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "fk_customer_address",
+          "columns": [
+            "address_id"
+          ],
+          "referred_table": "address",
+          "referred_columns": [
+            "address_id"
+          ]
+        },
+        {
+          "name": "fk_customer_store",
+          "columns": [
+            "store_id"
+          ],
+          "referred_table": "store",
+          "referred_columns": [
+            "store_id"
+          ]
+        }
+      ],
+      "constraints": [],
+      "row_count": 599
+    },
+    {
+      "name": "film",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "film_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR(128)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "release_year",
+          "type": "YEAR",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "language_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "original_language_id",
+          "type": "TINYINT",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "rental_duration",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": "'3'",
+          "autoincrement": false
+        },
+        {
+          "name": "rental_rate",
+          "type": "DECIMAL(4, 2)",
+          "nullable": false,
+          "default": "'4.99'",
+          "autoincrement": false
+        },
+        {
+          "name": "length",
+          "type": "SMALLINT",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "replacement_cost",
+          "type": "DECIMAL(5, 2)",
+          "nullable": false,
+          "default": "'19.99'",
+          "autoincrement": false
+        },
+        {
+          "name": "rating",
+          "type": "ENUM",
+          "nullable": true,
+          "default": "'G'",
+          "autoincrement": false
+        },
+        {
+          "name": "special_features",
+          "type": "SET",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "film_id"
+      ],
+      "indexes": [
+        {
+          "name": "idx_fk_language_id",
+          "columns": [
+            "language_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_fk_original_language_id",
+          "columns": [
+            "original_language_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_title",
+          "columns": [
+            "title"
+          ],
+          "unique": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "fk_film_language",
+          "columns": [
+            "language_id"
+          ],
+          "referred_table": "language",
+          "referred_columns": [
+            "language_id"
+          ]
+        },
+        {
+          "name": "fk_film_language_original",
+          "columns": [
+            "original_language_id"
+          ],
+          "referred_table": "language",
+          "referred_columns": [
+            "language_id"
+          ]
+        }
+      ],
+      "constraints": [],
+      "row_count": 1000
+    },
+    {
+      "name": "film_actor",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "actor_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "film_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "actor_id",
+        "film_id"
+      ],
+      "indexes": [
+        {
+          "name": "idx_fk_film_id",
+          "columns": [
+            "film_id"
+          ],
+          "unique": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "fk_film_actor_actor",
+          "columns": [
+            "actor_id"
+          ],
+          "referred_table": "actor",
+          "referred_columns": [
+            "actor_id"
+          ]
+        },
+        {
+          "name": "fk_film_actor_film",
+          "columns": [
+            "film_id"
+          ],
+          "referred_table": "film",
+          "referred_columns": [
+            "film_id"
+          ]
+        }
+      ],
+      "constraints": [],
+      "row_count": 5462
+    },
+    {
+      "name": "film_category",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "film_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "category_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "film_id",
+        "category_id"
+      ],
+      "indexes": [
+        {
+          "name": "fk_film_category_category",
+          "columns": [
+            "category_id"
+          ],
+          "unique": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "fk_film_category_category",
+          "columns": [
+            "category_id"
+          ],
+          "referred_table": "category",
+          "referred_columns": [
+            "category_id"
+          ]
+        },
+        {
+          "name": "fk_film_category_film",
+          "columns": [
+            "film_id"
+          ],
+          "referred_table": "film",
+          "referred_columns": [
+            "film_id"
+          ]
+        }
+      ],
+      "constraints": [],
+      "row_count": 1000
+    },
+    {
+      "name": "film_text",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "film_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR(255)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "film_id"
+      ],
+      "indexes": [
+        {
+          "name": "idx_title_description",
+          "columns": [
+            "title",
+            "description"
+          ],
+          "unique": false
+        }
+      ],
+      "foreign_keys": [],
+      "constraints": [],
+      "row_count": 1000
+    },
+    {
+      "name": "inventory",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "inventory_id",
+          "type": "MEDIUMINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "film_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "store_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "inventory_id"
+      ],
+      "indexes": [
+        {
+          "name": "idx_fk_film_id",
+          "columns": [
+            "film_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_store_id_film_id",
+          "columns": [
+            "store_id",
+            "film_id"
+          ],
+          "unique": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "fk_inventory_film",
+          "columns": [
+            "film_id"
+          ],
+          "referred_table": "film",
+          "referred_columns": [
+            "film_id"
+          ]
+        },
+        {
+          "name": "fk_inventory_store",
+          "columns": [
+            "store_id"
+          ],
+          "referred_table": "store",
+          "referred_columns": [
+            "store_id"
+          ]
+        }
+      ],
+      "constraints": [],
+      "row_count": 4581
+    },
+    {
+      "name": "language",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "language_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "name",
+          "type": "CHAR(20)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "language_id"
+      ],
+      "indexes": [],
+      "foreign_keys": [],
+      "constraints": [],
+      "row_count": 6
+    },
+    {
+      "name": "payment",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "payment_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "customer_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "staff_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "rental_id",
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL(5, 2)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "payment_date",
+          "type": "DATETIME",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": true,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "payment_id"
+      ],
+      "indexes": [
+        {
+          "name": "fk_payment_rental",
+          "columns": [
+            "rental_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_fk_customer_id",
+          "columns": [
+            "customer_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_fk_staff_id",
+          "columns": [
+            "staff_id"
+          ],
+          "unique": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "fk_payment_customer",
+          "columns": [
+            "customer_id"
+          ],
+          "referred_table": "customer",
+          "referred_columns": [
+            "customer_id"
+          ]
+        },
+        {
+          "name": "fk_payment_rental",
+          "columns": [
+            "rental_id"
+          ],
+          "referred_table": "rental",
+          "referred_columns": [
+            "rental_id"
+          ]
+        },
+        {
+          "name": "fk_payment_staff",
+          "columns": [
+            "staff_id"
+          ],
+          "referred_table": "staff",
+          "referred_columns": [
+            "staff_id"
+          ]
+        }
+      ],
+      "constraints": [],
+      "row_count": 16044
+    },
+    {
+      "name": "rental",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "rental_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "rental_date",
+          "type": "DATETIME",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "inventory_id",
+          "type": "MEDIUMINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "customer_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "return_date",
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "staff_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "rental_id"
+      ],
+      "indexes": [
+        {
+          "name": "idx_fk_customer_id",
+          "columns": [
+            "customer_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_fk_inventory_id",
+          "columns": [
+            "inventory_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_fk_staff_id",
+          "columns": [
+            "staff_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "rental_date",
+          "columns": [
+            "rental_date",
+            "inventory_id",
+            "customer_id"
+          ],
+          "unique": true
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "fk_rental_customer",
+          "columns": [
+            "customer_id"
+          ],
+          "referred_table": "customer",
+          "referred_columns": [
+            "customer_id"
+          ]
+        },
+        {
+          "name": "fk_rental_inventory",
+          "columns": [
+            "inventory_id"
+          ],
+          "referred_table": "inventory",
+          "referred_columns": [
+            "inventory_id"
+          ]
+        },
+        {
+          "name": "fk_rental_staff",
+          "columns": [
+            "staff_id"
+          ],
+          "referred_table": "staff",
+          "referred_columns": [
+            "staff_id"
+          ]
+        }
+      ],
+      "constraints": [],
+      "row_count": 16044
+    },
+    {
+      "name": "staff",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "staff_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR(45)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR(45)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "address_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "picture",
+          "type": "BLOB",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR(50)",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "store_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "active",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": "'1'",
+          "autoincrement": false
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR(16)",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "password",
+          "type": "VARCHAR(40) COLLATE \"utf8mb4_bin\"",
+          "nullable": true,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "staff_id"
+      ],
+      "indexes": [
+        {
+          "name": "idx_fk_address_id",
+          "columns": [
+            "address_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_fk_store_id",
+          "columns": [
+            "store_id"
+          ],
+          "unique": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "fk_staff_address",
+          "columns": [
+            "address_id"
+          ],
+          "referred_table": "address",
+          "referred_columns": [
+            "address_id"
+          ]
+        },
+        {
+          "name": "fk_staff_store",
+          "columns": [
+            "store_id"
+          ],
+          "referred_table": "store",
+          "referred_columns": [
+            "store_id"
+          ]
+        }
+      ],
+      "constraints": [],
+      "row_count": 2
+    },
+    {
+      "name": "store",
+      "schema_name": "public",
+      "columns": [
+        {
+          "name": "store_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": true
+        },
+        {
+          "name": "manager_staff_id",
+          "type": "TINYINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "address_id",
+          "type": "SMALLINT",
+          "nullable": false,
+          "default": null,
+          "autoincrement": false
+        },
+        {
+          "name": "last_update",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "autoincrement": false
+        }
+      ],
+      "primary_key": [
+        "store_id"
+      ],
+      "indexes": [
+        {
+          "name": "idx_fk_address_id",
+          "columns": [
+            "address_id"
+          ],
+          "unique": false
+        },
+        {
+          "name": "idx_unique_manager",
+          "columns": [
+            "manager_staff_id"
+          ],
+          "unique": true
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "fk_store_address",
+          "columns": [
+            "address_id"
+          ],
+          "referred_table": "address",
+          "referred_columns": [
+            "address_id"
+          ]
+        },
+        {
+          "name": "fk_store_staff",
+          "columns": [
+            "manager_staff_id"
+          ],
+          "referred_table": "staff",
+          "referred_columns": [
+            "staff_id"
+          ]
+        }
+      ],
+      "constraints": [],
+      "row_count": 2
+    }
+  ],
+  "views": [
+    {
+      "name": "customer_list",
+      "schema_name": "public",
+      "definition": "select `cu`.`customer_id` AS `ID`,concat(`cu`.`first_name`,' ',`cu`.`last_name`) AS `name`,`a`.`address` AS `address`,`a`.`postal_code` AS `zip code`,`a`.`phone` AS `phone`,`sakila`.`city`.`city` AS `city`,`sakila`.`country`.`country` AS `country`,if(`cu`.`active`,'active','') AS `notes`,`cu`.`store_id` AS `SID` from (((`sakila`.`customer` `cu` join `sakila`.`address` `a` on((`cu`.`address_id` = `a`.`address_id`))) join `sakila`.`city` on((`a`.`city_id` = `sakila`.`city`.`city_id`))) join `sakila`.`country` on((`sakila`.`city`.`country_id` = `sakila`.`country`.`country_id`)))",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "smallint",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "varchar",
+          "nullable": true
+        },
+        {
+          "name": "address",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "zip code",
+          "type": "varchar",
+          "nullable": true
+        },
+        {
+          "name": "phone",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "city",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "country",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "notes",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "SID",
+          "type": "tinyint",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "name": "film_list",
+      "schema_name": "public",
+      "definition": "select `sakila`.`film`.`film_id` AS `FID`,`sakila`.`film`.`title` AS `title`,`sakila`.`film`.`description` AS `description`,`sakila`.`category`.`name` AS `category`,`sakila`.`film`.`rental_rate` AS `price`,`sakila`.`film`.`length` AS `length`,`sakila`.`film`.`rating` AS `rating`,group_concat(concat(`sakila`.`actor`.`first_name`,' ',`sakila`.`actor`.`last_name`) separator ', ') AS `actors` from ((((`sakila`.`film` left join `sakila`.`film_category` on((`sakila`.`film_category`.`film_id` = `sakila`.`film`.`film_id`))) left join `sakila`.`category` on((`sakila`.`category`.`category_id` = `sakila`.`film_category`.`category_id`))) left join `sakila`.`film_actor` on((`sakila`.`film`.`film_id` = `sakila`.`film_actor`.`film_id`))) left join `sakila`.`actor` on((`sakila`.`film_actor`.`actor_id` = `sakila`.`actor`.`actor_id`))) group by `sakila`.`film`.`film_id`,`sakila`.`category`.`name`",
+      "columns": [
+        {
+          "name": "FID",
+          "type": "smallint",
+          "nullable": false
+        },
+        {
+          "name": "title",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "category",
+          "type": "varchar",
+          "nullable": true
+        },
+        {
+          "name": "price",
+          "type": "decimal",
+          "nullable": false
+        },
+        {
+          "name": "length",
+          "type": "smallint",
+          "nullable": true
+        },
+        {
+          "name": "rating",
+          "type": "enum",
+          "nullable": true
+        },
+        {
+          "name": "actors",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "nicer_but_slower_film_list",
+      "schema_name": "public",
+      "definition": "select `sakila`.`film`.`film_id` AS `FID`,`sakila`.`film`.`title` AS `title`,`sakila`.`film`.`description` AS `description`,`sakila`.`category`.`name` AS `category`,`sakila`.`film`.`rental_rate` AS `price`,`sakila`.`film`.`length` AS `length`,`sakila`.`film`.`rating` AS `rating`,group_concat(concat(concat(upper(substr(`sakila`.`actor`.`first_name`,1,1)),lower(substr(`sakila`.`actor`.`first_name`,2,length(`sakila`.`actor`.`first_name`))),' ',concat(upper(substr(`sakila`.`actor`.`last_name`,1,1)),lower(substr(`sakila`.`actor`.`last_name`,2,length(`sakila`.`actor`.`last_name`)))))) separator ', ') AS `actors` from ((((`sakila`.`film` left join `sakila`.`film_category` on((`sakila`.`film_category`.`film_id` = `sakila`.`film`.`film_id`))) left join `sakila`.`category` on((`sakila`.`category`.`category_id` = `sakila`.`film_category`.`category_id`))) left join `sakila`.`film_actor` on((`sakila`.`film`.`film_id` = `sakila`.`film_actor`.`film_id`))) left join `sakila`.`actor` on((`sakila`.`film_actor`.`actor_id` = `sakila`.`actor`.`actor_id`))) group by `sakila`.`film`.`film_id`,`sakila`.`category`.`name`",
+      "columns": [
+        {
+          "name": "FID",
+          "type": "smallint",
+          "nullable": false
+        },
+        {
+          "name": "title",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "category",
+          "type": "varchar",
+          "nullable": true
+        },
+        {
+          "name": "price",
+          "type": "decimal",
+          "nullable": false
+        },
+        {
+          "name": "length",
+          "type": "smallint",
+          "nullable": true
+        },
+        {
+          "name": "rating",
+          "type": "enum",
+          "nullable": true
+        },
+        {
+          "name": "actors",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "staff_list",
+      "schema_name": "public",
+      "definition": "select `s`.`staff_id` AS `ID`,concat(`s`.`first_name`,' ',`s`.`last_name`) AS `name`,`a`.`address` AS `address`,`a`.`postal_code` AS `zip code`,`a`.`phone` AS `phone`,`sakila`.`city`.`city` AS `city`,`sakila`.`country`.`country` AS `country`,`s`.`store_id` AS `SID` from (((`sakila`.`staff` `s` join `sakila`.`address` `a` on((`s`.`address_id` = `a`.`address_id`))) join `sakila`.`city` on((`a`.`city_id` = `sakila`.`city`.`city_id`))) join `sakila`.`country` on((`sakila`.`city`.`country_id` = `sakila`.`country`.`country_id`)))",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "tinyint",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "varchar",
+          "nullable": true
+        },
+        {
+          "name": "address",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "zip code",
+          "type": "varchar",
+          "nullable": true
+        },
+        {
+          "name": "phone",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "city",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "country",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "SID",
+          "type": "tinyint",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "name": "sales_by_store",
+      "schema_name": "public",
+      "definition": "select concat(`c`.`city`,',',`cy`.`country`) AS `store`,concat(`m`.`first_name`,' ',`m`.`last_name`) AS `manager`,sum(`p`.`amount`) AS `total_sales` from (((((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`store` `s` on((`i`.`store_id` = `s`.`store_id`))) join `sakila`.`address` `a` on((`s`.`address_id` = `a`.`address_id`))) join `sakila`.`city` `c` on((`a`.`city_id` = `c`.`city_id`))) join `sakila`.`country` `cy` on((`c`.`country_id` = `cy`.`country_id`))) join `sakila`.`staff` `m` on((`s`.`manager_staff_id` = `m`.`staff_id`))) group by `s`.`store_id` order by `cy`.`country`,`c`.`city`",
+      "columns": [
+        {
+          "name": "store",
+          "type": "varchar",
+          "nullable": true
+        },
+        {
+          "name": "manager",
+          "type": "varchar",
+          "nullable": true
+        },
+        {
+          "name": "total_sales",
+          "type": "decimal",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "sales_by_film_category",
+      "schema_name": "public",
+      "definition": "select `c`.`name` AS `category`,sum(`p`.`amount`) AS `total_sales` from (((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`film` `f` on((`i`.`film_id` = `f`.`film_id`))) join `sakila`.`film_category` `fc` on((`f`.`film_id` = `fc`.`film_id`))) join `sakila`.`category` `c` on((`fc`.`category_id` = `c`.`category_id`))) group by `c`.`name` order by `total_sales` desc",
+      "columns": [
+        {
+          "name": "category",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "total_sales",
+          "type": "decimal",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "actor_info",
+      "schema_name": "public",
+      "definition": "select `a`.`actor_id` AS `actor_id`,`a`.`first_name` AS `first_name`,`a`.`last_name` AS `last_name`,group_concat(distinct concat(`c`.`name`,': ',(select group_concat(`f`.`title` order by `f`.`title` ASC separator ', ') from ((`sakila`.`film` `f` join `sakila`.`film_category` `fc` on((`f`.`film_id` = `fc`.`film_id`))) join `sakila`.`film_actor` `fa` on((`f`.`film_id` = `fa`.`film_id`))) where ((`fc`.`category_id` = `c`.`category_id`) and (`fa`.`actor_id` = `a`.`actor_id`)))) order by `c`.`name` ASC separator '; ') AS `film_info` from (((`sakila`.`actor` `a` left join `sakila`.`film_actor` `fa` on((`a`.`actor_id` = `fa`.`actor_id`))) left join `sakila`.`film_category` `fc` on((`fa`.`film_id` = `fc`.`film_id`))) left join `sakila`.`category` `c` on((`fc`.`category_id` = `c`.`category_id`))) group by `a`.`actor_id`,`a`.`first_name`,`a`.`last_name`",
+      "columns": [
+        {
+          "name": "actor_id",
+          "type": "smallint",
+          "nullable": false
+        },
+        {
+          "name": "first_name",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "last_name",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "film_info",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    }
+  ],
+  "procedures": [
+    {
+      "name": "get_customer_balance",
+      "type": "function",
+      "schema_name": "public",
+      "parameters": [
+        {
+          "name": "p_customer_id",
+          "type": "int",
+          "mode": "IN"
+        },
+        {
+          "name": "p_effective_date",
+          "type": "datetime",
+          "mode": "IN"
+        }
+      ],
+      "return_type": "decimal(5,2)",
+      "source_code": "CREATE DEFINER=`root`@`localhost` FUNCTION `get_customer_balance`(p_customer_id INT, p_effective_date DATETIME) RETURNS decimal(5,2)\n    READS SQL DATA\n    DETERMINISTIC\nBEGIN\n\n       #OK, WE NEED TO CALCULATE THE CURRENT BALANCE GIVEN A CUSTOMER_ID AND A DATE\n       #THAT WE WANT THE BALANCE TO BE EFFECTIVE FOR. THE BALANCE IS:\n       #   1) RENTAL FEES FOR ALL PREVIOUS RENTALS\n       #   2) ONE DOLLAR FOR EVERY DAY THE PREVIOUS RENTALS ARE OVERDUE\n       #   3) IF A FILM IS MORE THAN RENTAL_DURATION * 2 OVERDUE, CHARGE THE REPLACEMENT_COST\n       #   4) SUBTRACT ALL PAYMENTS MADE BEFORE THE DATE SPECIFIED\n\n  DECLARE v_rentfees DECIMAL(5,2); #FEES PAID TO RENT THE VIDEOS INITIALLY\n  DECLARE v_overfees INTEGER;      #LATE FEES FOR PRIOR RENTALS\n  DECLARE v_payments DECIMAL(5,2); #SUM OF PAYMENTS MADE PREVIOUSLY\n\n  SELECT IFNULL(SUM(film.rental_rate),0) INTO v_rentfees\n    FROM film, inventory, rental\n    WHERE film.film_id = inventory.film_id\n      AND inventory.inventory_id = rental.inventory_id\n      AND rental.rental_date <= p_effective_date\n      AND rental.customer_id = p_customer_id;\n\n  SELECT IFNULL(SUM(IF((TO_DAYS(rental.return_date) - TO_DAYS(rental.rental_date)) > film.rental_duration,\n        ((TO_DAYS(rental.return_date) - TO_DAYS(rental.rental_date)) - film.rental_duration),0)),0) INTO v_overfees\n    FROM rental, inventory, film\n    WHERE film.film_id = inventory.film_id\n      AND inventory.inventory_id = rental.inventory_id\n      AND rental.rental_date <= p_effective_date\n      AND rental.customer_id = p_customer_id;\n\n\n  SELECT IFNULL(SUM(payment.amount),0) INTO v_payments\n    FROM payment\n\n    WHERE payment.payment_date <= p_effective_date\n    AND payment.customer_id = p_customer_id;\n\n  RETURN v_rentfees + v_overfees - v_payments;\nEND"
+    },
+    {
+      "name": "inventory_held_by_customer",
+      "type": "function",
+      "schema_name": "public",
+      "parameters": [
+        {
+          "name": "p_inventory_id",
+          "type": "int",
+          "mode": "IN"
+        }
+      ],
+      "return_type": "int",
+      "source_code": "CREATE DEFINER=`root`@`localhost` FUNCTION `inventory_held_by_customer`(p_inventory_id INT) RETURNS int\n    READS SQL DATA\nBEGIN\n  DECLARE v_customer_id INT;\n  DECLARE EXIT HANDLER FOR NOT FOUND RETURN NULL;\n\n  SELECT customer_id INTO v_customer_id\n  FROM rental\n  WHERE return_date IS NULL\n  AND inventory_id = p_inventory_id;\n\n  RETURN v_customer_id;\nEND"
+    },
+    {
+      "name": "inventory_in_stock",
+      "type": "function",
+      "schema_name": "public",
+      "parameters": [
+        {
+          "name": "p_inventory_id",
+          "type": "int",
+          "mode": "IN"
+        }
+      ],
+      "return_type": "tinyint(1)",
+      "source_code": "CREATE DEFINER=`root`@`localhost` FUNCTION `inventory_in_stock`(p_inventory_id INT) RETURNS tinyint(1)\n    READS SQL DATA\nBEGIN\n    DECLARE v_rentals INT;\n    DECLARE v_out     INT;\n\n    #AN ITEM IS IN-STOCK IF THERE ARE EITHER NO ROWS IN THE rental TABLE\n    #FOR THE ITEM OR ALL ROWS HAVE return_date POPULATED\n\n    SELECT COUNT(*) INTO v_rentals\n    FROM rental\n    WHERE inventory_id = p_inventory_id;\n\n    IF v_rentals = 0 THEN\n      RETURN TRUE;\n    END IF;\n\n    SELECT COUNT(rental_id) INTO v_out\n    FROM inventory LEFT JOIN rental USING(inventory_id)\n    WHERE inventory.inventory_id = p_inventory_id\n    AND rental.return_date IS NULL;\n\n    IF v_out > 0 THEN\n      RETURN FALSE;\n    ELSE\n      RETURN TRUE;\n    END IF;\nEND"
+    },
+    {
+      "name": "film_in_stock",
+      "type": "procedure",
+      "schema_name": "public",
+      "parameters": [
+        {
+          "name": "p_film_id",
+          "type": "int",
+          "mode": "IN"
+        },
+        {
+          "name": "p_store_id",
+          "type": "int",
+          "mode": "IN"
+        },
+        {
+          "name": "p_film_count",
+          "type": "int",
+          "mode": "OUT"
+        }
+      ],
+      "return_type": null,
+      "source_code": "CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)\n    READS SQL DATA\nBEGIN\n     SELECT inventory_id\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND inventory_in_stock(inventory_id);\n\n     SELECT COUNT(*)\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND inventory_in_stock(inventory_id)\n     INTO p_film_count;\nEND"
+    },
+    {
+      "name": "film_not_in_stock",
+      "type": "procedure",
+      "schema_name": "public",
+      "parameters": [
+        {
+          "name": "p_film_id",
+          "type": "int",
+          "mode": "IN"
+        },
+        {
+          "name": "p_store_id",
+          "type": "int",
+          "mode": "IN"
+        },
+        {
+          "name": "p_film_count",
+          "type": "int",
+          "mode": "OUT"
+        }
+      ],
+      "return_type": null,
+      "source_code": "CREATE DEFINER=`root`@`localhost` PROCEDURE `film_not_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)\n    READS SQL DATA\nBEGIN\n     SELECT inventory_id\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND NOT inventory_in_stock(inventory_id);\n\n     SELECT COUNT(*)\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND NOT inventory_in_stock(inventory_id)\n     INTO p_film_count;\nEND"
+    },
+    {
+      "name": "rewards_report",
+      "type": "procedure",
+      "schema_name": "public",
+      "parameters": [
+        {
+          "name": "min_monthly_purchases",
+          "type": "tinyint",
+          "mode": "IN"
+        },
+        {
+          "name": "min_dollar_amount_purchased",
+          "type": "decimal",
+          "mode": "IN"
+        },
+        {
+          "name": "count_rewardees",
+          "type": "int",
+          "mode": "OUT"
+        }
+      ],
+      "return_type": null,
+      "source_code": "CREATE DEFINER=`root`@`localhost` PROCEDURE `rewards_report`(\n    IN min_monthly_purchases TINYINT UNSIGNED\n    , IN min_dollar_amount_purchased DECIMAL(10,2)\n    , OUT count_rewardees INT\n)\n    READS SQL DATA\n    COMMENT 'Provides a customizable report on best customers'\nproc: BEGIN\n\n    DECLARE last_month_start DATE;\n    DECLARE last_month_end DATE;\n\n    /* Some sanity checks... */\n    IF min_monthly_purchases = 0 THEN\n        SELECT 'Minimum monthly purchases parameter must be > 0';\n        LEAVE proc;\n    END IF;\n    IF min_dollar_amount_purchased = 0.00 THEN\n        SELECT 'Minimum monthly dollar amount purchased parameter must be > $0.00';\n        LEAVE proc;\n    END IF;\n\n    /* Determine start and end time periods */\n    SET last_month_start = DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH);\n    SET last_month_start = STR_TO_DATE(CONCAT(YEAR(last_month_start),'-',MONTH(last_month_start),'-01'),'%Y-%m-%d');\n    SET last_month_end = LAST_DAY(last_month_start);\n\n    /*\n        Create a temporary storage area for\n        Customer IDs.\n    */\n    CREATE TEMPORARY TABLE tmpCustomer (customer_id SMALLINT UNSIGNED NOT NULL PRIMARY KEY);\n\n    /*\n        Find all customers meeting the\n        monthly purchase requirements\n    */\n    INSERT INTO tmpCustomer (customer_id)\n    SELECT p.customer_id\n    FROM payment AS p\n    WHERE DATE(p.payment_date) BETWEEN last_month_start AND last_month_end\n    GROUP BY customer_id\n    HAVING SUM(p.amount) > min_dollar_amount_purchased\n    AND COUNT(customer_id) > min_monthly_purchases;\n\n    /* Populate OUT parameter with count of found customers */\n    SELECT COUNT(*) FROM tmpCustomer INTO count_rewardees;\n\n    /*\n        Output ALL customer information of matching rewardees.\n        Customize output as needed.\n    */\n    SELECT c.*\n    FROM tmpCustomer AS t\n    INNER JOIN customer AS c ON t.customer_id = c.customer_id;\n\n    /* Clean up */\n    DROP TABLE tmpCustomer;\nEND"
+    }
+  ],
+  "triggers": [
+    {
+      "name": "ins_film",
+      "table_name": "film",
+      "timing": "AFTER",
+      "event": "INSERT",
+      "source_code": "BEGIN\n    INSERT INTO film_text (film_id, title, description)\n        VALUES (new.film_id, new.title, new.description);\n  END"
+    },
+    {
+      "name": "upd_film",
+      "table_name": "film",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "source_code": "BEGIN\n    IF (old.title != new.title) OR (old.description != new.description) OR (old.film_id != new.film_id)\n    THEN\n        UPDATE film_text\n            SET title=new.title,\n                description=new.description,\n                film_id=new.film_id\n        WHERE film_id=old.film_id;\n    END IF;\n  END"
+    },
+    {
+      "name": "del_film",
+      "table_name": "film",
+      "timing": "AFTER",
+      "event": "DELETE",
+      "source_code": "BEGIN\n    DELETE FROM film_text WHERE film_id = old.film_id;\n  END"
+    },
+    {
+      "name": "customer_create_date",
+      "table_name": "customer",
+      "timing": "BEFORE",
+      "event": "INSERT",
+      "source_code": "SET NEW.create_date = NOW()"
+    },
+    {
+      "name": "payment_date",
+      "table_name": "payment",
+      "timing": "BEFORE",
+      "event": "INSERT",
+      "source_code": "SET NEW.payment_date = NOW()"
+    },
+    {
+      "name": "rental_date",
+      "table_name": "rental",
+      "timing": "BEFORE",
+      "event": "INSERT",
+      "source_code": "SET NEW.rental_date = NOW()"
+    }
+  ],
+  "_artifact_metadata": {
+<<<<<<< HEAD
+    "created_at": "2026-02-02T15:10:54.361747",
+=======
+    "created_at": "2026-01-27T15:50:43.320286",
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+    "version": "1.0"
+  }
+}

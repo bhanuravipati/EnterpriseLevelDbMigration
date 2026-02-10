@@ -1,0 +1,79 @@
+{
+  "table_name": "film_text",
+  "all_tables_in_database": [
+    "actor",
+    "address",
+    "category",
+    "city",
+    "country",
+    "customer",
+    "film",
+    "film_actor",
+    "film_category",
+    "film_text",
+    "inventory",
+    "language",
+    "payment",
+    "rental",
+    "staff",
+    "store"
+  ],
+  "schema": {
+    "columns": [
+      {
+        "name": "film_id",
+        "mysql_type": "SMALLINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "title",
+        "mysql_type": "VARCHAR(255)",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "description",
+        "mysql_type": "TEXT",
+        "nullable": true,
+        "default": null,
+        "autoincrement": false
+      }
+    ],
+    "primary_key": [
+      "film_id"
+    ],
+    "row_count": 1000
+  },
+  "indexes": [
+    {
+      "name": "idx_title_description",
+      "columns": [
+        "title",
+        "description"
+      ],
+      "unique": false
+    }
+  ],
+  "foreign_keys": {
+    "outgoing": [],
+    "incoming": [],
+    "deferred": []
+  },
+  "constraints": [],
+  "dependencies": {
+    "depends_on": [],
+    "depended_by": [],
+    "has_circular_fk": false
+  },
+  "related_views": [],
+  "related_triggers": [],
+  "related_procedures": [],
+  "conversion_hints": {
+    "use_singular_table_names": true,
+    "index_naming": "idx_film_text_{column_name}",
+    "fk_naming": "fk_film_text_{referenced_table}"
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "table_name": "customer",
+  "all_tables_in_database": [
+    "actor",
+    "address",
+    "category",
+    "city",
+    "country",
+    "customer",
+    "film",
+    "film_actor",
+    "film_category",
+    "film_text",
+    "inventory",
+    "language",
+    "payment",
+    "rental",
+    "staff",
+    "store"
+  ],
+  "schema": {
+    "columns": [
+      {
+        "name": "customer_id",
+        "mysql_type": "SMALLINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": true
+      },
+      {
+        "name": "store_id",
+        "mysql_type": "TINYINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "first_name",
+        "mysql_type": "VARCHAR(45)",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "last_name",
+        "mysql_type": "VARCHAR(45)",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "email",
+        "mysql_type": "VARCHAR(50)",
+        "nullable": true,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "address_id",
+        "mysql_type": "SMALLINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "active",
+        "mysql_type": "TINYINT",
+        "nullable": false,
+        "default": "'1'",
+        "autoincrement": false
+      },
+      {
+        "name": "create_date",
+        "mysql_type": "DATETIME",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "last_update",
+        "mysql_type": "TIMESTAMP",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+        "autoincrement": false
+      }
+    ],
+    "primary_key": [
+      "customer_id"
+    ],
+    "row_count": 599
+  },
+  "indexes": [
+    {
+      "name": "idx_fk_address_id",
+      "columns": [
+        "address_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "idx_fk_store_id",
+      "columns": [
+        "store_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "idx_last_name",
+      "columns": [
+        "last_name"
+      ],
+      "unique": false
+    }
+  ],
+  "foreign_keys": {
+    "outgoing": [
+      {
+        "name": "fk_customer_address",
+        "columns": [
+          "address_id"
+        ],
+        "references_table": "address",
+        "references_columns": [
+          "address_id"
+        ],
+        "is_deferred": false
+      },
+      {
+        "name": "fk_customer_store",
+        "columns": [
+          "store_id"
+        ],
+        "references_table": "store",
+        "references_columns": [
+          "store_id"
+        ],
+        "is_deferred": false
+      }
+    ],
+    "incoming": [
+      {
+        "from_table": "payment"
+      },
+      {
+        "from_table": "rental"
+      }
+    ],
+    "deferred": []
+  },
+  "constraints": [],
+  "dependencies": {
+    "depends_on": [
+      "store",
+      "address"
+    ],
+    "depended_by": [
+      "rental",
+      "payment"
+    ],
+    "has_circular_fk": false
+  },
+  "related_views": [
+    {
+      "name": "customer_list",
+      "definition": "select `cu`.`customer_id` AS `ID`,concat(`cu`.`first_name`,' ',`cu`.`last_name`) AS `name`,`a`.`address` AS `address`,`a`.`postal_code` AS `zip code`,`a`.`phone` AS `phone`,`sakila`.`city`.`city` AS `city`,`sakila`.`country`.`country` AS `country`,if(`cu`.`active`,'active','') AS `notes`,`cu`.`store_id` AS `SID` from (((`sakila`.`customer` `cu` join `sakila`.`address` `a` on((`cu`.`address_id` = `a`.`address_id`))) join `sakila`.`city` on((`a`.`city_id` = `sakila`.`city`.`city_id`))) join `sakil"
+    }
+  ],
+  "related_triggers": [
+    {
+      "name": "customer_create_date",
+      "timing": "BEFORE",
+      "event": "INSERT",
+      "source": "SET NEW.create_date = NOW()"
+    }
+  ],
+  "related_procedures": [
+    {
+      "name": "get_customer_balance",
+      "type": "function",
+      "source": "CREATE DEFINER=`root`@`localhost` FUNCTION `get_customer_balance`(p_customer_id INT, p_effective_date DATETIME) RETURNS decimal(5,2)\n    READS SQL DATA\n    DETERMINISTIC\nBEGIN\n\n       #OK, WE NEED TO CALCULATE THE CURRENT BALANCE GIVEN A CUSTOMER_ID AND A DATE\n       #THAT WE WANT THE BALANCE TO BE "
+    },
+    {
+      "name": "inventory_held_by_customer",
+      "type": "function",
+      "source": "CREATE DEFINER=`root`@`localhost` FUNCTION `inventory_held_by_customer`(p_inventory_id INT) RETURNS int\n    READS SQL DATA\nBEGIN\n  DECLARE v_customer_id INT;\n  DECLARE EXIT HANDLER FOR NOT FOUND RETURN NULL;\n\n  SELECT customer_id INTO v_customer_id\n  FROM rental\n  WHERE return_date IS NULL\n  AND inv"
+    },
+    {
+      "name": "rewards_report",
+      "type": "procedure",
+      "source": "CREATE DEFINER=`root`@`localhost` PROCEDURE `rewards_report`(\n    IN min_monthly_purchases TINYINT UNSIGNED\n    , IN min_dollar_amount_purchased DECIMAL(10,2)\n    , OUT count_rewardees INT\n)\n    READS SQL DATA\n    COMMENT 'Provides a customizable report on best customers'\nproc: BEGIN\n\n    DECLARE la"
+    }
+  ],
+  "conversion_hints": {
+    "use_singular_table_names": true,
+    "index_naming": "idx_customer_{column_name}",
+    "fk_naming": "fk_customer_{referenced_table}"
+  }
+}

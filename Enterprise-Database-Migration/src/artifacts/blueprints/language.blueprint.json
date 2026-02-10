@@ -1,0 +1,79 @@
+{
+  "table_name": "language",
+  "all_tables_in_database": [
+    "actor",
+    "address",
+    "category",
+    "city",
+    "country",
+    "customer",
+    "film",
+    "film_actor",
+    "film_category",
+    "film_text",
+    "inventory",
+    "language",
+    "payment",
+    "rental",
+    "staff",
+    "store"
+  ],
+  "schema": {
+    "columns": [
+      {
+        "name": "language_id",
+        "mysql_type": "TINYINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": true
+      },
+      {
+        "name": "name",
+        "mysql_type": "CHAR(20)",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "last_update",
+        "mysql_type": "TIMESTAMP",
+        "nullable": false,
+        "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+        "autoincrement": false
+      }
+    ],
+    "primary_key": [
+      "language_id"
+    ],
+    "row_count": 6
+  },
+  "indexes": [],
+  "foreign_keys": {
+    "outgoing": [],
+    "incoming": [
+      {
+        "from_table": "film"
+      },
+      {
+        "from_table": "film"
+      }
+    ],
+    "deferred": []
+  },
+  "constraints": [],
+  "dependencies": {
+    "depends_on": [],
+    "depended_by": [
+      "film"
+    ],
+    "has_circular_fk": false
+  },
+  "related_views": [],
+  "related_triggers": [],
+  "related_procedures": [],
+  "conversion_hints": {
+    "use_singular_table_names": true,
+    "index_naming": "idx_language_{column_name}",
+    "fk_naming": "fk_language_{referenced_table}"
+  }
+}

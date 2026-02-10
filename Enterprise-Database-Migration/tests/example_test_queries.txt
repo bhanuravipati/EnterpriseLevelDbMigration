@@ -1,0 +1,50 @@
+1.
+
+SELECT COUNT(*) FROM customer;
+
+SELECT COUNT(*) FROM customer;
+
+2.
+
+SELECT c.first_name, c.last_name, SUM(p.amount) as total_spent
+FROM customer c
+JOIN payment p ON c.customer_id = p.customer_id
+GROUP BY c.customer_id
+ORDER BY total_spent DESC
+LIMIT 5;
+
+SELECT c.first_name, c.last_name, SUM(p.amount) as total_spent
+FROM customer c
+JOIN payment p ON c.customer_id = p.customer_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+ORDER BY total_spent DESC
+LIMIT 5;
+
+3.
+
+SELECT MONTHNAME(rental_date) as month, COUNT(*) as count 
+FROM rental 
+WHERE YEAR(rental_date) = 2005 
+GROUP BY MONTHNAME(rental_date);
+
+SELECT to_char(rental_date, 'Month') as month, COUNT(*) as count 
+FROM rental 
+WHERE EXTRACT(YEAR FROM rental_date) = 2005 
+GROUP BY to_char(rental_date, 'Month');
+
+4.
+
+SELECT title, description FROM film 
+WHERE description LIKE '%Dinosaur%' 
+LIMIT 3;
+
+SELECT title, description FROM film 
+WHERE description LIKE '%Dinosaur%' 
+LIMIT 3;
+
+5.
+
+SELECT first_name, active FROM customer WHERE active = 1 LIMIT 5;
+
+SELECT first_name, active FROM customer WHERE active = 1 LIMIT 5;
+

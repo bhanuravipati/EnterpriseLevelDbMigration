@@ -1,0 +1,185 @@
+{
+  "table_name": "payment",
+  "all_tables_in_database": [
+    "actor",
+    "address",
+    "category",
+    "city",
+    "country",
+    "customer",
+    "film",
+    "film_actor",
+    "film_category",
+    "film_text",
+    "inventory",
+    "language",
+    "payment",
+    "rental",
+    "staff",
+    "store"
+  ],
+  "schema": {
+    "columns": [
+      {
+        "name": "payment_id",
+        "mysql_type": "SMALLINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": true
+      },
+      {
+        "name": "customer_id",
+        "mysql_type": "SMALLINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "staff_id",
+        "mysql_type": "TINYINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "rental_id",
+        "mysql_type": "INTEGER",
+        "nullable": true,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "amount",
+        "mysql_type": "DECIMAL(5, 2)",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "payment_date",
+        "mysql_type": "DATETIME",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "last_update",
+        "mysql_type": "TIMESTAMP",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+        "autoincrement": false
+      }
+    ],
+    "primary_key": [
+      "payment_id"
+    ],
+    "row_count": 16044
+  },
+  "indexes": [
+    {
+      "name": "fk_payment_rental",
+      "columns": [
+        "rental_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "idx_fk_customer_id",
+      "columns": [
+        "customer_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "idx_fk_staff_id",
+      "columns": [
+        "staff_id"
+      ],
+      "unique": false
+    }
+  ],
+  "foreign_keys": {
+    "outgoing": [
+      {
+        "name": "fk_payment_customer",
+        "columns": [
+          "customer_id"
+        ],
+        "references_table": "customer",
+        "references_columns": [
+          "customer_id"
+        ],
+        "is_deferred": false
+      },
+      {
+        "name": "fk_payment_rental",
+        "columns": [
+          "rental_id"
+        ],
+        "references_table": "rental",
+        "references_columns": [
+          "rental_id"
+        ],
+        "is_deferred": false
+      },
+      {
+        "name": "fk_payment_staff",
+        "columns": [
+          "staff_id"
+        ],
+        "references_table": "staff",
+        "references_columns": [
+          "staff_id"
+        ],
+        "is_deferred": false
+      }
+    ],
+    "incoming": [],
+    "deferred": []
+  },
+  "constraints": [],
+  "dependencies": {
+    "depends_on": [
+      "rental",
+      "customer",
+      "staff"
+    ],
+    "depended_by": [],
+    "has_circular_fk": false
+  },
+  "related_views": [
+    {
+      "name": "sales_by_store",
+      "definition": "select concat(`c`.`city`,',',`cy`.`country`) AS `store`,concat(`m`.`first_name`,' ',`m`.`last_name`) AS `manager`,sum(`p`.`amount`) AS `total_sales` from (((((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`store` `s` on((`i`.`store_id` = `s`.`store_id`))) join `sakila`.`address` `a` on((`s`.`address_id` = `a`.`address_id`))) join `sakila`.`city` `c` on((`a`.`c"
+    },
+    {
+      "name": "sales_by_film_category",
+      "definition": "select `c`.`name` AS `category`,sum(`p`.`amount`) AS `total_sales` from (((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`film` `f` on((`i`.`film_id` = `f`.`film_id`))) join `sakila`.`film_category` `fc` on((`f`.`film_id` = `fc`.`film_id`))) join `sakila`.`category` `c` on((`fc`.`category_id` = `c`.`category_id`))) group by `c`.`name` order by `total_sales` de"
+    }
+  ],
+  "related_triggers": [
+    {
+      "name": "payment_date",
+      "timing": "BEFORE",
+      "event": "INSERT",
+      "source": "SET NEW.payment_date = NOW()"
+    }
+  ],
+  "related_procedures": [
+    {
+      "name": "get_customer_balance",
+      "type": "function",
+      "source": "CREATE DEFINER=`root`@`localhost` FUNCTION `get_customer_balance`(p_customer_id INT, p_effective_date DATETIME) RETURNS decimal(5,2)\n    READS SQL DATA\n    DETERMINISTIC\nBEGIN\n\n       #OK, WE NEED TO CALCULATE THE CURRENT BALANCE GIVEN A CUSTOMER_ID AND A DATE\n       #THAT WE WANT THE BALANCE TO BE "
+    },
+    {
+      "name": "rewards_report",
+      "type": "procedure",
+      "source": "CREATE DEFINER=`root`@`localhost` PROCEDURE `rewards_report`(\n    IN min_monthly_purchases TINYINT UNSIGNED\n    , IN min_dollar_amount_purchased DECIMAL(10,2)\n    , OUT count_rewardees INT\n)\n    READS SQL DATA\n    COMMENT 'Provides a customizable report on best customers'\nproc: BEGIN\n\n    DECLARE la"
+    }
+  ],
+  "conversion_hints": {
+    "use_singular_table_names": true,
+    "index_naming": "idx_payment_{column_name}",
+    "fk_naming": "fk_payment_{referenced_table}"
+  }
+}

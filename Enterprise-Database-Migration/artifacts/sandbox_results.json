@@ -1,0 +1,511 @@
+{
+  "total": 37,
+  "passed": 37,
+  "failed": 0,
+  "results": [
+    {
+      "object_name": "actor",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 11.781930923461914,
+=======
+      "execution_time_ms": 10.619163513183594,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "category",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 9.242057800292969,
+=======
+      "execution_time_ms": 5.142688751220703,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "country",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 11.544942855834961,
+=======
+      "execution_time_ms": 6.662607192993164,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_text",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 14.704704284667969,
+=======
+      "execution_time_ms": 8.310079574584961,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "language",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 11.45482063293457,
+=======
+      "execution_time_ms": 4.7817230224609375,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "city",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 13.679742813110352,
+=======
+      "execution_time_ms": 6.897926330566406,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 14.660120010375977,
+=======
+      "execution_time_ms": 7.395505905151367,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "address",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 9.352684020996094,
+=======
+      "execution_time_ms": 4.745960235595703,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_actor",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 10.15162467956543,
+=======
+      "execution_time_ms": 5.658626556396484,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_category",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 10.269880294799805,
+=======
+      "execution_time_ms": 6.88624382019043,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "customer",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 10.214567184448242,
+=======
+      "execution_time_ms": 5.89442253112793,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "inventory",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 12.506484985351562,
+=======
+      "execution_time_ms": 6.350994110107422,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "payment",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 13.494014739990234,
+=======
+      "execution_time_ms": 6.423234939575195,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "rental",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 13.644695281982422,
+=======
+      "execution_time_ms": 7.527351379394531,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "staff",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 11.528253555297852,
+=======
+      "execution_time_ms": 8.394956588745117,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "store",
+      "object_type": "table",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 11.729001998901367,
+=======
+      "execution_time_ms": 8.130311965942383,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "_indexes",
+      "object_type": "index",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 76.3542652130127,
+=======
+      "execution_time_ms": 45.55797576904297,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "_deferred_fks",
+      "object_type": "constraint",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 23.020029067993164,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "actor_info",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 8.403778076171875,
+=======
+      "execution_time_ms": 13.284683227539062,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "customer_list",
+      "object_type": "view",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 6.209611892700195,
+=======
+      "execution_time_ms": 4.0435791015625,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_list",
+      "object_type": "view",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 9.04393196105957,
+=======
+      "execution_time_ms": 3.2892227172851562,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "nicer_but_slower_film_list",
+      "object_type": "view",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 7.271528244018555,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "sales_by_film_category",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 6.872415542602539,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "sales_by_store",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 7.971525192260742,
+=======
+      "execution_time_ms": 3.463268280029297,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "staff_list",
+      "object_type": "view",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 6.0787200927734375,
+=======
+      "execution_time_ms": 3.285646438598633,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "sales_by_store",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 3.992795944213867,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "sales_by_film_category",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 3.4923553466796875,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "actor_info",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 3.506183624267578,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "get_customer_balance",
+      "object_type": "function",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 6.247282028198242,
+=======
+      "execution_time_ms": 3.163576126098633,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "inventory_held_by_customer",
+      "object_type": "function",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 5.787372589111328,
+=======
+      "execution_time_ms": 3.7033557891845703,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "inventory_in_stock",
+      "object_type": "function",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 6.201267242431641,
+=======
+      "execution_time_ms": 5.625724792480469,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_in_stock",
+      "object_type": "procedure",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 5.096197128295898,
+=======
+      "execution_time_ms": 3.0031204223632812,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_not_in_stock",
+      "object_type": "procedure",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 7.073879241943359,
+=======
+      "execution_time_ms": 3.062009811401367,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "rewards_report",
+      "object_type": "procedure",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 6.282806396484375,
+=======
+      "execution_time_ms": 2.6574134826660156,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "ins_film",
+      "object_type": "trigger",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 5.991935729980469,
+=======
+      "execution_time_ms": 2.7844905853271484,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "upd_film",
+      "object_type": "trigger",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 8.281230926513672,
+=======
+      "execution_time_ms": 4.146337509155273,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "del_film",
+      "object_type": "trigger",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 5.428075790405273,
+=======
+      "execution_time_ms": 3.0281543731689453,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "customer_create_date",
+      "object_type": "trigger",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 7.586479187011719,
+=======
+      "execution_time_ms": 2.725839614868164,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "payment_date",
+      "object_type": "trigger",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 5.304813385009766,
+=======
+      "execution_time_ms": 2.6967525482177734,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "rental_date",
+      "object_type": "trigger",
+      "executed": true,
+<<<<<<< HEAD
+      "execution_time_ms": 5.226612091064453,
+=======
+      "execution_time_ms": 2.6044845581054688,
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    }
+  ],
+  "_artifact_metadata": {
+<<<<<<< HEAD
+    "created_at": "2026-02-02T15:16:39.617464",
+=======
+    "created_at": "2026-01-27T15:54:13.863130",
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+    "version": "1.0"
+  }
+}

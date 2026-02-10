@@ -1,0 +1,274 @@
+{
+<<<<<<< HEAD
+  "total_tokens": 0,
+  "total_calls": 0,
+  "by_model": {},
+  "by_agent": {},
+  "records": []
+=======
+  "total_tokens": 84486,
+  "total_calls": 36,
+  "by_model": {
+    "openai/gpt-oss-120b": 84486
+  },
+  "by_agent": {
+    "Schema Transformation Agent": 58641,
+    "Stored Logic Conversion Agent": 23149,
+    "Error Fixer Agent": 2696
+  },
+  "records": [
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1857,
+      "completion_tokens": 312,
+      "total_tokens": 2169
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1937,
+      "completion_tokens": 611,
+      "total_tokens": 2548
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1820,
+      "completion_tokens": 247,
+      "total_tokens": 2067
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1872,
+      "completion_tokens": 337,
+      "total_tokens": 2209
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1810,
+      "completion_tokens": 292,
+      "total_tokens": 2102
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1977,
+      "completion_tokens": 631,
+      "total_tokens": 2608
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 2077,
+      "completion_tokens": 902,
+      "total_tokens": 2979
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1884,
+      "completion_tokens": 238,
+      "total_tokens": 2122
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1887,
+      "completion_tokens": 297,
+      "total_tokens": 2184
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1800,
+      "completion_tokens": 212,
+      "total_tokens": 2012
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1906,
+      "completion_tokens": 358,
+      "total_tokens": 2264
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1792,
+      "completion_tokens": 326,
+      "total_tokens": 2118
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1968,
+      "completion_tokens": 443,
+      "total_tokens": 2411
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 2012,
+      "completion_tokens": 606,
+      "total_tokens": 2618
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 2060,
+      "completion_tokens": 654,
+      "total_tokens": 2714
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1989,
+      "completion_tokens": 465,
+      "total_tokens": 2454
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 2139,
+      "completion_tokens": 455,
+      "total_tokens": 2594
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 2211,
+      "completion_tokens": 986,
+      "total_tokens": 3197
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 2281,
+      "completion_tokens": 1277,
+      "total_tokens": 3558
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 2125,
+      "completion_tokens": 636,
+      "total_tokens": 2761
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 2212,
+      "completion_tokens": 870,
+      "total_tokens": 3082
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 2131,
+      "completion_tokens": 443,
+      "total_tokens": 2574
+    },
+    {
+      "agent": "Schema Transformation Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 2233,
+      "completion_tokens": 1063,
+      "total_tokens": 3296
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1813,
+      "completion_tokens": 1097,
+      "total_tokens": 2910
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1380,
+      "completion_tokens": 543,
+      "total_tokens": 1923
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1489,
+      "completion_tokens": 465,
+      "total_tokens": 1954
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1459,
+      "completion_tokens": 527,
+      "total_tokens": 1986
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1462,
+      "completion_tokens": 1678,
+      "total_tokens": 3140
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1787,
+      "completion_tokens": 1714,
+      "total_tokens": 3501
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1093,
+      "completion_tokens": 217,
+      "total_tokens": 1310
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1136,
+      "completion_tokens": 278,
+      "total_tokens": 1414
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1080,
+      "completion_tokens": 264,
+      "total_tokens": 1344
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1068,
+      "completion_tokens": 182,
+      "total_tokens": 1250
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1067,
+      "completion_tokens": 141,
+      "total_tokens": 1208
+    },
+    {
+      "agent": "Stored Logic Conversion Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1068,
+      "completion_tokens": 141,
+      "total_tokens": 1209
+    },
+    {
+      "agent": "Error Fixer Agent",
+      "model": "openai/gpt-oss-120b",
+      "prompt_tokens": 1989,
+      "completion_tokens": 707,
+      "total_tokens": 2696
+    }
+  ]
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+}

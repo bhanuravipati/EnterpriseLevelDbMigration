@@ -1,0 +1,344 @@
+{
+  "total": 37,
+  "passed": 37,
+  "failed": 0,
+  "results": [
+    {
+      "object_name": "actor",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 12.806892395019531,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "category",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 10.967254638671875,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "country",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 9.534597396850586,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_text",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 16.944169998168945,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "language",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 12.518167495727539,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "city",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 9.577512741088867,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 17.386674880981445,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "address",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 8.161067962646484,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_actor",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 12.091398239135742,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_category",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 9.127378463745117,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "customer",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 9.213685989379883,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "inventory",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 11.3677978515625,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "payment",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 9.634733200073242,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "rental",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 14.040470123291016,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "staff",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 13.724803924560547,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "store",
+      "object_type": "table",
+      "executed": true,
+      "execution_time_ms": 11.181354522705078,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "_indexes",
+      "object_type": "index",
+      "executed": true,
+      "execution_time_ms": 95.55482864379883,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "_deferred_fks",
+      "object_type": "constraint",
+      "executed": true,
+      "execution_time_ms": 18.858671188354492,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "customer_list",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 5.2013397216796875,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_list",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 5.396366119384766,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "nicer_but_slower_film_list",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 6.544828414916992,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "staff_list",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 6.060123443603516,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "sales_by_store",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 5.787372589111328,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "sales_by_film_category",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 4.207372665405273,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "actor_info",
+      "object_type": "view",
+      "executed": true,
+      "execution_time_ms": 3.94439697265625,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "get_customer_balance",
+      "object_type": "function",
+      "executed": true,
+      "execution_time_ms": 3.9756298065185547,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "inventory_held_by_customer",
+      "object_type": "function",
+      "executed": true,
+      "execution_time_ms": 4.194498062133789,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "inventory_in_stock",
+      "object_type": "function",
+      "executed": true,
+      "execution_time_ms": 2.906322479248047,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_in_stock",
+      "object_type": "procedure",
+      "executed": true,
+      "execution_time_ms": 2.779245376586914,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "film_not_in_stock",
+      "object_type": "procedure",
+      "executed": true,
+      "execution_time_ms": 3.1747817993164062,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "rewards_report",
+      "object_type": "procedure",
+      "executed": true,
+      "execution_time_ms": 4.878997802734375,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "ins_film",
+      "object_type": "trigger",
+      "executed": true,
+      "execution_time_ms": 3.3469200134277344,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "upd_film",
+      "object_type": "trigger",
+      "executed": true,
+      "execution_time_ms": 4.253149032592773,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "del_film",
+      "object_type": "trigger",
+      "executed": true,
+      "execution_time_ms": 4.369974136352539,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "customer_create_date",
+      "object_type": "trigger",
+      "executed": true,
+      "execution_time_ms": 5.501985549926758,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "payment_date",
+      "object_type": "trigger",
+      "executed": true,
+      "execution_time_ms": 4.84156608581543,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    },
+    {
+      "object_name": "rental_date",
+      "object_type": "trigger",
+      "executed": true,
+      "execution_time_ms": 4.433393478393555,
+      "errors": [],
+      "warnings": [],
+      "retry_count": 0
+    }
+  ],
+  "_artifact_metadata": {
+    "created_at": "2026-01-23T15:16:39.380543",
+    "version": "1.0"
+  }
+}

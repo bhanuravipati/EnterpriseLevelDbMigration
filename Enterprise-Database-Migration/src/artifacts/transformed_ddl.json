@@ -1,0 +1,361 @@
+{
+  "method": "LLM-only (openai/gpt-oss-120b)",
+  "tables": 16,
+  "views": 7,
+  "deferred_fks": 22,
+  "indexes": 26,
+  "transformations": [
+    {
+      "object_name": "actor",
+      "object_type": "table",
+      "source_ddl": "## Table: actor\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `actor_id`: SMALLINT NOT NULL AUTO_INCREMENT\n- `first_name`: VARCHAR(45) NOT NULL\n- `last_name`: VARCHAR(45) NOT NULL\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: actor_id\n\n### Indexes (IMPORTANT: use idx_actor_<column> format!):\n- INDEX `idx_actor_last_name` ON (last_name)\n\n### Tables that depend on this table:\n- film_actor\n\n### Views that use this table (3):\n- film_list\n- nicer_but_slower_film_list\n- actor_info\n\n### Row Count: 200\n",
+      "target_ddl": "CREATE TABLE \"actor\" (\n    \"actor_id\" SMALLSERIAL PRIMARY KEY,\n    \"first_name\" VARCHAR(45) NOT NULL,\n    \"last_name\" VARCHAR(45) NOT NULL,\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\actor.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "address",
+      "object_type": "table",
+      "source_ddl": "## Table: address\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `address_id`: SMALLINT NOT NULL AUTO_INCREMENT\n- `address`: VARCHAR(50) NOT NULL\n- `address2`: VARCHAR(50)\n- `district`: VARCHAR(20) NOT NULL\n- `city_id`: SMALLINT NOT NULL\n- `postal_code`: VARCHAR(10)\n- `phone`: VARCHAR(20) NOT NULL\n- `location`: NULL NOT NULL\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: address_id\n\n### Indexes (IMPORTANT: use idx_address_<column> format!):\n- INDEX `idx_address_city_id` ON (city_id)\n- INDEX `idx_address_location` ON (location)\n\n### Foreign Keys:\n- fk_address_city: (city_id) \u2192 city\n\n### Tables that depend on this table:\n- customer\n- staff\n- store\n\n### This table depends on: city\n\n### Views that use this table (3):\n- customer_list\n- staff_list\n- sales_by_store\n\n### Row Count: 603\n",
+      "target_ddl": "CREATE TABLE \"address\" (\n    \"address_id\" SMALLSERIAL PRIMARY KEY,\n    \"address\" VARCHAR(50) NOT NULL,\n    \"address2\" VARCHAR(50),\n    \"district\" VARCHAR(20) NOT NULL,\n    \"city_id\" SMALLINT NOT NULL,\n    \"postal_code\" VARCHAR(10),\n    \"phone\" VARCHAR(20) NOT NULL,\n    \"location\" POINT NOT NULL,\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\address.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "category",
+      "object_type": "table",
+      "source_ddl": "## Table: category\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `category_id`: TINYINT NOT NULL AUTO_INCREMENT\n- `name`: VARCHAR(25) NOT NULL\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: category_id\n\n### Tables that depend on this table:\n- film_category\n\n### Views that use this table (4):\n- film_list\n- nicer_but_slower_film_list\n- sales_by_film_category\n\n### Row Count: 16\n",
+      "target_ddl": "CREATE TABLE \"category\" (\n    \"category_id\" SMALLSERIAL PRIMARY KEY,\n    \"name\" VARCHAR(25) NOT NULL,\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\category.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "city",
+      "object_type": "table",
+      "source_ddl": "## Table: city\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `city_id`: SMALLINT NOT NULL AUTO_INCREMENT\n- `city`: VARCHAR(50) NOT NULL\n- `country_id`: SMALLINT NOT NULL\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: city_id\n\n### Indexes (IMPORTANT: use idx_city_<column> format!):\n- INDEX `idx_city_country_id` ON (country_id)\n\n### Foreign Keys:\n- fk_city_country: (country_id) \u2192 country\n\n### Tables that depend on this table:\n- address\n\n### This table depends on: country\n\n### Views that use this table (3):\n- customer_list\n- staff_list\n- sales_by_store\n\n### Row Count: 600\n",
+      "target_ddl": "CREATE TABLE \"city\" (\n    \"city_id\" SMALLSERIAL PRIMARY KEY,\n    \"city\" VARCHAR(50) NOT NULL,\n    \"country_id\" SMALLINT NOT NULL,\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\city.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "country",
+      "object_type": "table",
+      "source_ddl": "## Table: country\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `country_id`: SMALLINT NOT NULL AUTO_INCREMENT\n- `country`: VARCHAR(50) NOT NULL\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: country_id\n\n### Tables that depend on this table:\n- city\n\n### Views that use this table (3):\n- customer_list\n- staff_list\n- sales_by_store\n\n### Row Count: 109\n",
+      "target_ddl": "CREATE TABLE \"country\" (\n    \"country_id\" SMALLSERIAL PRIMARY KEY,\n    \"country\" VARCHAR(50) NOT NULL,\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\country.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "customer",
+      "object_type": "table",
+      "source_ddl": "## Table: customer\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `customer_id`: SMALLINT NOT NULL AUTO_INCREMENT\n- `store_id`: TINYINT NOT NULL\n- `first_name`: VARCHAR(45) NOT NULL\n- `last_name`: VARCHAR(45) NOT NULL\n- `email`: VARCHAR(50)\n- `address_id`: SMALLINT NOT NULL\n- `active`: TINYINT NOT NULL DEFAULT '1'\n- `create_date`: DATETIME NOT NULL\n- `last_update`: TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: customer_id\n\n### Indexes (IMPORTANT: use idx_customer_<column> format!):\n- INDEX `idx_customer_address_id` ON (address_id)\n- INDEX `idx_customer_store_id` ON (store_id)\n- INDEX `idx_customer_last_name` ON (last_name)\n\n### Foreign Keys:\n- fk_customer_address: (address_id) \u2192 address\n- fk_customer_store: (store_id) \u2192 store\n\n### Tables that depend on this table:\n- payment\n- rental\n\n### This table depends on: store, address\n\n### Views that use this table (1):\n- customer_list\n\n### Triggers on this table (1):\n- customer_create_date (BEFORE INSERT)\n\n### Row Count: 599\n",
+      "target_ddl": "CREATE TABLE \"customer\" (\n    \"customer_id\" SMALLSERIAL PRIMARY KEY,\n    \"store_id\" SMALLINT NOT NULL,\n    \"first_name\" VARCHAR(45) NOT NULL,\n    \"last_name\" VARCHAR(45) NOT NULL,\n    \"email\" VARCHAR(50),\n    \"address_id\" SMALLINT NOT NULL,\n    \"active\" SMALLINT NOT NULL DEFAULT 1,\n    \"create_date\" TIMESTAMP NOT NULL,\n    \"last_update\" TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\customer.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "film",
+      "object_type": "table",
+      "source_ddl": "## Table: film\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `film_id`: SMALLINT NOT NULL AUTO_INCREMENT\n- `title`: VARCHAR(128) NOT NULL\n- `description`: TEXT\n- `release_year`: YEAR\n- `language_id`: TINYINT NOT NULL\n- `original_language_id`: TINYINT\n- `rental_duration`: TINYINT NOT NULL DEFAULT '3'\n- `rental_rate`: DECIMAL(4, 2) NOT NULL DEFAULT '4.99'\n- `length`: SMALLINT\n- `replacement_cost`: DECIMAL(5, 2) NOT NULL DEFAULT '19.99'\n- `rating`: ENUM DEFAULT 'G'\n- `special_features`: SET\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: film_id\n\n### Indexes (IMPORTANT: use idx_film_<column> format!):\n- INDEX `idx_film_language_id` ON (language_id)\n- INDEX `idx_film_original_language_id` ON (original_language_id)\n- INDEX `idx_film_title` ON (title)\n\n### Foreign Keys:\n- fk_film_language: (language_id) \u2192 language\n- fk_film_language_original: (original_language_id) \u2192 language\n\n### Tables that depend on this table:\n- film_actor\n- film_category\n- inventory\n\n### This table depends on: language\n\n### Views that use this table (4):\n- film_list\n- nicer_but_slower_film_list\n- sales_by_film_category\n\n### Triggers on this table (3):\n- ins_film (AFTER INSERT)\n- upd_film (AFTER UPDATE)\n- del_film (AFTER DELETE)\n\n### Row Count: 1,000\n",
+      "target_ddl": "CREATE TABLE \"film\" (\n    \"film_id\" SMALLSERIAL PRIMARY KEY,\n    \"title\" VARCHAR(128) NOT NULL,\n    \"description\" TEXT,\n    \"release_year\" SMALLINT,\n    \"language_id\" SMALLINT NOT NULL,\n    \"original_language_id\" SMALLINT,\n    \"rental_duration\" SMALLINT NOT NULL DEFAULT 3,\n    \"rental_rate\" NUMERIC(4,2) NOT NULL DEFAULT 4.99,\n    \"length\" SMALLINT,\n    \"replacement_cost\" NUMERIC(5,2) NOT NULL DEFAULT 19.99,\n    \"rating\" TEXT DEFAULT 'G' CHECK (\"rating\" IN ('G','PG','PG-13','R','NC-17')),\n    \"special_features\" TEXT[],\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\film.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "film_actor",
+      "object_type": "table",
+      "source_ddl": "## Table: film_actor\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `actor_id`: SMALLINT NOT NULL\n- `film_id`: SMALLINT NOT NULL\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: actor_id, film_id\n\n### Indexes (IMPORTANT: use idx_film_actor_<column> format!):\n- INDEX `idx_film_actor_film_id` ON (film_id)\n\n### Foreign Keys:\n- fk_film_actor_actor: (actor_id) \u2192 actor\n- fk_film_actor_film: (film_id) \u2192 film\n\n### This table depends on: actor, film\n\n### Views that use this table (3):\n- film_list\n- nicer_but_slower_film_list\n- actor_info\n\n### Row Count: 5,462\n",
+      "target_ddl": "CREATE TABLE \"film_actor\" (\n    \"actor_id\" SMALLINT NOT NULL,\n    \"film_id\" SMALLINT NOT NULL,\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n    PRIMARY KEY (\"actor_id\", \"film_id\")\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\film_actor.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "film_category",
+      "object_type": "table",
+      "source_ddl": "## Table: film_category\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `film_id`: SMALLINT NOT NULL\n- `category_id`: TINYINT NOT NULL\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: film_id, category_id\n\n### Indexes (IMPORTANT: use idx_film_category_<column> format!):\n- INDEX `idx_film_category_category_id` ON (category_id)\n\n### Foreign Keys:\n- fk_film_category_category: (category_id) \u2192 category\n- fk_film_category_film: (film_id) \u2192 film\n\n### This table depends on: category, film\n\n### Views that use this table (4):\n- film_list\n- nicer_but_slower_film_list\n- sales_by_film_category\n\n### Row Count: 1,000\n",
+      "target_ddl": "CREATE TABLE \"film_category\" (\n    \"film_id\" SMALLINT NOT NULL,\n    \"category_id\" SMALLINT NOT NULL,\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n    PRIMARY KEY (\"film_id\", \"category_id\")\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\film_category.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "film_text",
+      "object_type": "table",
+      "source_ddl": "## Table: film_text\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `film_id`: SMALLINT NOT NULL\n- `title`: VARCHAR(255) NOT NULL\n- `description`: TEXT\n\n### Primary Key: film_id\n\n### Indexes (IMPORTANT: use idx_film_text_<column> format!):\n- INDEX `idx_film_text_title` ON (title, description)\n\n### Row Count: 1,000\n",
+      "target_ddl": "CREATE TABLE \"film_text\" (\n    \"film_id\" SMALLINT NOT NULL,\n    \"title\" VARCHAR(255) NOT NULL,\n    \"description\" TEXT,\n    PRIMARY KEY (\"film_id\")\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\film_text.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "inventory",
+      "object_type": "table",
+      "source_ddl": "## Table: inventory\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `inventory_id`: MEDIUMINT NOT NULL AUTO_INCREMENT\n- `film_id`: SMALLINT NOT NULL\n- `store_id`: TINYINT NOT NULL\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: inventory_id\n\n### Indexes (IMPORTANT: use idx_inventory_<column> format!):\n- INDEX `idx_inventory_film_id` ON (film_id)\n- INDEX `idx_inventory_store_id` ON (store_id, film_id)\n\n### Foreign Keys:\n- fk_inventory_film: (film_id) \u2192 film\n- fk_inventory_store: (store_id) \u2192 store\n\n### Tables that depend on this table:\n- rental\n\n### This table depends on: store, film\n\n### Views that use this table (2):\n- sales_by_store\n- sales_by_film_category\n\n### Row Count: 4,581\n",
+      "target_ddl": "CREATE TABLE \"inventory\" (\n    \"inventory_id\" SERIAL PRIMARY KEY,\n    \"film_id\" SMALLINT NOT NULL,\n    \"store_id\" SMALLINT NOT NULL,\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\inventory.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "language",
+      "object_type": "table",
+      "source_ddl": "## Table: language\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `language_id`: TINYINT NOT NULL AUTO_INCREMENT\n- `name`: CHAR(20) NOT NULL\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: language_id\n\n### Tables that depend on this table:\n- film\n- film\n\n### Row Count: 6\n",
+      "target_ddl": "CREATE TABLE \"language\" (\n    \"language_id\" SMALLSERIAL PRIMARY KEY,\n    \"name\" CHAR(20) NOT NULL,\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\language.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "payment",
+      "object_type": "table",
+      "source_ddl": "## Table: payment\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `payment_id`: SMALLINT NOT NULL AUTO_INCREMENT\n- `customer_id`: SMALLINT NOT NULL\n- `staff_id`: TINYINT NOT NULL\n- `rental_id`: INTEGER\n- `amount`: DECIMAL(5, 2) NOT NULL\n- `payment_date`: DATETIME NOT NULL\n- `last_update`: TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: payment_id\n\n### Indexes (IMPORTANT: use idx_payment_<column> format!):\n- INDEX `idx_payment_rental_id` ON (rental_id)\n- INDEX `idx_payment_customer_id` ON (customer_id)\n- INDEX `idx_payment_staff_id` ON (staff_id)\n\n### Foreign Keys:\n- fk_payment_customer: (customer_id) \u2192 customer\n- fk_payment_rental: (rental_id) \u2192 rental\n- fk_payment_staff: (staff_id) \u2192 staff\n\n### This table depends on: rental, customer, staff\n\n### Views that use this table (2):\n- sales_by_store\n- sales_by_film_category\n\n### Triggers on this table (1):\n- payment_date (BEFORE INSERT)\n\n### Row Count: 16,044\n",
+      "target_ddl": "CREATE TABLE \"payment\" (\n    \"payment_id\" SMALLSERIAL PRIMARY KEY,\n    \"customer_id\" SMALLINT NOT NULL,\n    \"staff_id\" SMALLINT NOT NULL,\n    \"rental_id\" INTEGER,\n    \"amount\" NUMERIC(5,2) NOT NULL,\n    \"payment_date\" TIMESTAMP NOT NULL,\n    \"last_update\" TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\payment.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "rental",
+      "object_type": "table",
+      "source_ddl": "## Table: rental\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `rental_id`: INTEGER NOT NULL AUTO_INCREMENT\n- `rental_date`: DATETIME NOT NULL\n- `inventory_id`: MEDIUMINT NOT NULL\n- `customer_id`: SMALLINT NOT NULL\n- `return_date`: DATETIME\n- `staff_id`: TINYINT NOT NULL\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: rental_id\n\n### Indexes (IMPORTANT: use idx_rental_<column> format!):\n- INDEX `idx_rental_customer_id` ON (customer_id)\n- INDEX `idx_rental_inventory_id` ON (inventory_id)\n- INDEX `idx_rental_staff_id` ON (staff_id)\n- UNIQUE INDEX `idx_rental_rental_date` ON (rental_date, inventory_id, customer_id)\n\n### Foreign Keys:\n- fk_rental_customer: (customer_id) \u2192 customer\n- fk_rental_inventory: (inventory_id) \u2192 inventory\n- fk_rental_staff: (staff_id) \u2192 staff\n\n### Tables that depend on this table:\n- payment\n\n### This table depends on: inventory, customer, staff\n\n### Views that use this table (4):\n- film_list\n- nicer_but_slower_film_list\n- sales_by_store\n\n### Triggers on this table (1):\n- rental_date (BEFORE INSERT)\n\n### Row Count: 16,044\n",
+      "target_ddl": "CREATE TABLE \"rental\" (\n    \"rental_id\" SERIAL PRIMARY KEY,\n    \"rental_date\" TIMESTAMP NOT NULL,\n    \"inventory_id\" INTEGER NOT NULL,\n    \"customer_id\" SMALLINT NOT NULL,\n    \"return_date\" TIMESTAMP,\n    \"staff_id\" SMALLINT NOT NULL,\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n    UNIQUE (\"rental_date\", \"inventory_id\", \"customer_id\")\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\rental.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "staff",
+      "object_type": "table",
+      "source_ddl": "## Table: staff\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `staff_id`: TINYINT NOT NULL AUTO_INCREMENT\n- `first_name`: VARCHAR(45) NOT NULL\n- `last_name`: VARCHAR(45) NOT NULL\n- `address_id`: SMALLINT NOT NULL\n- `picture`: BLOB\n- `email`: VARCHAR(50)\n- `store_id`: TINYINT NOT NULL\n- `active`: TINYINT NOT NULL DEFAULT '1'\n- `username`: VARCHAR(16) NOT NULL\n- `password`: VARCHAR(40) COLLATE \"utf8mb4_bin\"\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: staff_id\n\n### Indexes (IMPORTANT: use idx_staff_<column> format!):\n- INDEX `idx_staff_address_id` ON (address_id)\n- INDEX `idx_staff_store_id` ON (store_id)\n\n### Foreign Keys:\n- fk_staff_address: (address_id) \u2192 address\n- \u26a0\ufe0f DEFERRED (is_deferred: true) - SKIP THIS FK IN CREATE TABLE!\n  fk_staff_store: (store_id) \u2192 store\n\n### \u26a0\ufe0f DEFERRED FKs (DO NOT include in CREATE TABLE!):\n- fk_staff_store: Skip this - will be added via ALTER TABLE later\n\n### Tables that depend on this table:\n- payment\n- rental\n- store\n\n### This table depends on: store, address\n\n### \u26a0\ufe0f WARNING: This table has CIRCULAR FK dependencies - some FKs are deferred!\n\n### Views that use this table (2):\n- staff_list\n- sales_by_store\n\n### Row Count: 2\n",
+      "target_ddl": "CREATE TABLE \"staff\" (\n    \"staff_id\" SMALLSERIAL PRIMARY KEY,\n    \"first_name\" VARCHAR(45) NOT NULL,\n    \"last_name\" VARCHAR(45) NOT NULL,\n    \"address_id\" SMALLINT NOT NULL,\n    \"picture\" BYTEA,\n    \"email\" VARCHAR(50),\n    \"store_id\" SMALLINT NOT NULL,\n    \"active\" SMALLINT NOT NULL DEFAULT 1,\n    \"username\" VARCHAR(16) NOT NULL,\n    \"password\" VARCHAR(40),\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\staff.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "store",
+      "object_type": "table",
+      "source_ddl": "## Table: store\n\n### All Tables in Database (for reference):\nactor, address, category, city, country, customer, film, film_actor, film_category, film_text, inventory, language, payment, rental, staff, store\n\n### Columns:\n- `store_id`: TINYINT NOT NULL AUTO_INCREMENT\n- `manager_staff_id`: TINYINT NOT NULL\n- `address_id`: SMALLINT NOT NULL\n- `last_update`: TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n\n### Primary Key: store_id\n\n### Indexes (IMPORTANT: use idx_store_<column> format!):\n- INDEX `idx_store_address_id` ON (address_id)\n- UNIQUE INDEX `idx_store_manager_staff_id` ON (manager_staff_id)\n\n### Foreign Keys:\n- fk_store_address: (address_id) \u2192 address\n- \u26a0\ufe0f DEFERRED (is_deferred: true) - SKIP THIS FK IN CREATE TABLE!\n  fk_store_staff: (manager_staff_id) \u2192 staff\n\n### \u26a0\ufe0f DEFERRED FKs (DO NOT include in CREATE TABLE!):\n- fk_store_staff: Skip this - will be added via ALTER TABLE later\n\n### Tables that depend on this table:\n- customer\n- inventory\n- staff\n\n### This table depends on: staff, address\n\n### \u26a0\ufe0f WARNING: This table has CIRCULAR FK dependencies - some FKs are deferred!\n\n### Views that use this table (3):\n- customer_list\n- staff_list\n- sales_by_store\n\n### Row Count: 2\n",
+      "target_ddl": "CREATE TABLE \"store\" (\n    \"store_id\" SMALLSERIAL PRIMARY KEY,\n    \"manager_staff_id\" SMALLINT NOT NULL,\n    \"address_id\" SMALLINT NOT NULL,\n    \"last_update\" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n    UNIQUE (\"manager_staff_id\")\n);",
+      "type_mappings": [
+        {
+          "method": "LLM+Blueprint",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\tables\\store.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "customer_list",
+      "object_type": "view",
+      "source_ddl": "select `cu`.`customer_id` AS `ID`,concat(`cu`.`first_name`,' ',`cu`.`last_name`) AS `name`,`a`.`address` AS `address`,`a`.`postal_code` AS `zip code`,`a`.`phone` AS `phone`,`sakila`.`city`.`city` AS `city`,`sakila`.`country`.`country` AS `country`,if(`cu`.`active`,'active','') AS `notes`,`cu`.`store_id` AS `SID` from (((`sakila`.`customer` `cu` join `sakila`.`address` `a` on((`cu`.`address_id` = `a`.`address_id`))) join `sakila`.`city` on((`a`.`city_id` = `sakila`.`city`.`city_id`))) join `sakila`.`country` on((`sakila`.`city`.`country_id` = `sakila`.`country`.`country_id`)))",
+      "target_ddl": "CREATE OR REPLACE VIEW \"customer_list\" AS\nSELECT\n    cu.customer_id AS \"ID\",\n    (cu.first_name || ' ' || cu.last_name) AS \"name\",\n    a.address AS \"address\",\n    a.postal_code AS \"zip code\",\n    a.phone AS \"phone\",\n    city.city AS \"city\",\n    country.country AS \"country\",\n    CASE WHEN cu.active = 1 THEN 'active' ELSE '' END AS \"notes\",\n    cu.store_id AS \"SID\"\nFROM customer cu\nJOIN address a ON cu.address_id = a.address_id\nJOIN city ON a.city_id = city.city_id\nJOIN country ON city.country_id = country.country_id;",
+      "type_mappings": [
+        {
+          "method": "LLM",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\views\\customer_list.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "film_list",
+      "object_type": "view",
+      "source_ddl": "select `sakila`.`film`.`film_id` AS `FID`,`sakila`.`film`.`title` AS `title`,`sakila`.`film`.`description` AS `description`,`sakila`.`category`.`name` AS `category`,`sakila`.`film`.`rental_rate` AS `price`,`sakila`.`film`.`length` AS `length`,`sakila`.`film`.`rating` AS `rating`,group_concat(concat(`sakila`.`actor`.`first_name`,' ',`sakila`.`actor`.`last_name`) separator ', ') AS `actors` from ((((`sakila`.`film` left join `sakila`.`film_category` on((`sakila`.`film_category`.`film_id` = `sakila`.`film`.`film_id`))) left join `sakila`.`category` on((`sakila`.`category`.`category_id` = `sakila`.`film_category`.`category_id`))) left join `sakila`.`film_actor` on((`sakila`.`film`.`film_id` = `sakila`.`film_actor`.`film_id`))) left join `sakila`.`actor` on((`sakila`.`film_actor`.`actor_id` = `sakila`.`actor`.`actor_id`))) group by `sakila`.`film`.`film_id`,`sakila`.`category`.`name`",
+      "target_ddl": "CREATE OR REPLACE VIEW film_list AS\nSELECT\n    film.film_id AS \"FID\",\n    film.title,\n    film.description,\n    category.name AS category,\n    film.rental_rate AS price,\n    film.length,\n    film.rating,\n    STRING_AGG(actor.first_name || ' ' || actor.last_name, ', ') AS actors\nFROM film\nLEFT JOIN film_category ON film_category.film_id = film.film_id\nLEFT JOIN category ON category.category_id = film_category.category_id\nLEFT JOIN film_actor ON film.film_id = film_actor.film_id\nLEFT JOIN actor ON film_actor.actor_id = actor.actor_id\nGROUP BY film.film_id, category.name;",
+      "type_mappings": [
+        {
+          "method": "LLM",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\views\\film_list.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "nicer_but_slower_film_list",
+      "object_type": "view",
+      "source_ddl": "select `sakila`.`film`.`film_id` AS `FID`,`sakila`.`film`.`title` AS `title`,`sakila`.`film`.`description` AS `description`,`sakila`.`category`.`name` AS `category`,`sakila`.`film`.`rental_rate` AS `price`,`sakila`.`film`.`length` AS `length`,`sakila`.`film`.`rating` AS `rating`,group_concat(concat(concat(upper(substr(`sakila`.`actor`.`first_name`,1,1)),lower(substr(`sakila`.`actor`.`first_name`,2,length(`sakila`.`actor`.`first_name`))),' ',concat(upper(substr(`sakila`.`actor`.`last_name`,1,1)),lower(substr(`sakila`.`actor`.`last_name`,2,length(`sakila`.`actor`.`last_name`)))))) separator ', ') AS `actors` from ((((`sakila`.`film` left join `sakila`.`film_category` on((`sakila`.`film_category`.`film_id` = `sakila`.`film`.`film_id`))) left join `sakila`.`category` on((`sakila`.`category`.`category_id` = `sakila`.`film_category`.`category_id`))) left join `sakila`.`film_actor` on((`sakila`.`film`.`film_id` = `sakila`.`film_actor`.`film_id`))) left join `sakila`.`actor` on((`sakila`.`film_actor`.`actor_id` = `sakila`.`actor`.`actor_id`))) group by `sakila`.`film`.`film_id`,`sakila`.`category`.`name`",
+      "target_ddl": "CREATE VIEW nicer_but_slower_film_list AS\nSELECT f.film_id AS \"FID\",\n       f.title,\n       f.description,\n       c.name AS category,\n       f.rental_rate AS price,\n       f.length,\n       f.rating,\n       STRING_AGG(initcap(a.first_name) || ' ' || initcap(a.last_name), ', ' ORDER BY initcap(a.first_name) || ' ' || initcap(a.last_name)) AS actors\nFROM film f\nLEFT JOIN film_category fc ON fc.film_id = f.film_id\nLEFT JOIN category c ON c.category_id = fc.category_id\nLEFT JOIN film_actor fa ON fa.film_id = f.film_id\nLEFT JOIN actor a ON a.actor_id = fa.actor_id\nGROUP BY f.film_id, c.name;",
+      "type_mappings": [
+        {
+          "method": "LLM",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\views\\nicer_but_slower_film_list.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "staff_list",
+      "object_type": "view",
+      "source_ddl": "select `s`.`staff_id` AS `ID`,concat(`s`.`first_name`,' ',`s`.`last_name`) AS `name`,`a`.`address` AS `address`,`a`.`postal_code` AS `zip code`,`a`.`phone` AS `phone`,`sakila`.`city`.`city` AS `city`,`sakila`.`country`.`country` AS `country`,`s`.`store_id` AS `SID` from (((`sakila`.`staff` `s` join `sakila`.`address` `a` on((`s`.`address_id` = `a`.`address_id`))) join `sakila`.`city` on((`a`.`city_id` = `sakila`.`city`.`city_id`))) join `sakila`.`country` on((`sakila`.`city`.`country_id` = `sakila`.`country`.`country_id`)))",
+      "target_ddl": "CREATE OR REPLACE VIEW staff_list AS\nSELECT s.staff_id AS \"ID\",\n       s.first_name || ' ' || s.last_name AS \"name\",\n       a.address AS \"address\",\n       a.postal_code AS \"zip code\",\n       a.phone AS \"phone\",\n       city.city AS \"city\",\n       country.country AS \"country\",\n       s.store_id AS \"SID\"\nFROM staff s\nJOIN address a ON s.address_id = a.address_id\nJOIN city ON a.city_id = city.city_id\nJOIN country ON city.country_id = country.country_id;",
+      "type_mappings": [
+        {
+          "method": "LLM",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\views\\staff_list.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "sales_by_store",
+      "object_type": "view",
+      "source_ddl": "select concat(`c`.`city`,',',`cy`.`country`) AS `store`,concat(`m`.`first_name`,' ',`m`.`last_name`) AS `manager`,sum(`p`.`amount`) AS `total_sales` from (((((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`store` `s` on((`i`.`store_id` = `s`.`store_id`))) join `sakila`.`address` `a` on((`s`.`address_id` = `a`.`address_id`))) join `sakila`.`city` `c` on((`a`.`city_id` = `c`.`city_id`))) join `sakila`.`country` `cy` on((`c`.`country_id` = `cy`.`country_id`))) join `sakila`.`staff` `m` on((`s`.`manager_staff_id` = `m`.`staff_id`))) group by `s`.`store_id` order by `cy`.`country`,`c`.`city`",
+      "target_ddl": "CREATE OR REPLACE VIEW sales_by_store AS\nSELECT\n    CONCAT(c.city, ',', cy.country) AS \"store\",\n    CONCAT(m.first_name, ' ', m.last_name) AS \"manager\",\n    SUM(p.amount) AS \"total_sales\"\nFROM payment p\nJOIN rental r ON p.rental_id = r.rental_id\nJOIN inventory i ON r.inventory_id = i.inventory_id\nJOIN store s ON i.store_id = s.store_id\nJOIN address a ON s.address_id = a.address_id\nJOIN city c ON a.city_id = c.city_id\nJOIN country cy ON c.country_id = cy.country_id\nJOIN staff m ON s.manager_staff_id = m.staff_id\nGROUP BY s.store_id, c.city, cy.country\nORDER BY cy.country, c.city;",
+      "type_mappings": [
+        {
+          "method": "LLM",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\views\\sales_by_store.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "sales_by_film_category",
+      "object_type": "view",
+      "source_ddl": "select `c`.`name` AS `category`,sum(`p`.`amount`) AS `total_sales` from (((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`film` `f` on((`i`.`film_id` = `f`.`film_id`))) join `sakila`.`film_category` `fc` on((`f`.`film_id` = `fc`.`film_id`))) join `sakila`.`category` `c` on((`fc`.`category_id` = `c`.`category_id`))) group by `c`.`name` order by `total_sales` desc",
+      "target_ddl": "CREATE VIEW \"sales_by_film_category\" AS\nSELECT c.\"name\" AS \"category\",\n       SUM(p.\"amount\") AS \"total_sales\"\nFROM payment p\nJOIN rental r ON p.\"rental_id\" = r.\"rental_id\"\nJOIN inventory i ON r.\"inventory_id\" = i.\"inventory_id\"\nJOIN film f ON i.\"film_id\" = f.\"film_id\"\nJOIN film_category fc ON f.\"film_id\" = fc.\"film_id\"\nJOIN category c ON fc.\"category_id\" = c.\"category_id\"\nGROUP BY c.\"name\"\nORDER BY \"total_sales\" DESC;",
+      "type_mappings": [
+        {
+          "method": "LLM",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\views\\sales_by_film_category.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "actor_info",
+      "object_type": "view",
+      "source_ddl": "select `a`.`actor_id` AS `actor_id`,`a`.`first_name` AS `first_name`,`a`.`last_name` AS `last_name`,group_concat(distinct concat(`c`.`name`,': ',(select group_concat(`f`.`title` order by `f`.`title` ASC separator ', ') from ((`sakila`.`film` `f` join `sakila`.`film_category` `fc` on((`f`.`film_id` = `fc`.`film_id`))) join `sakila`.`film_actor` `fa` on((`f`.`film_id` = `fa`.`film_id`))) where ((`fc`.`category_id` = `c`.`category_id`) and (`fa`.`actor_id` = `a`.`actor_id`)))) order by `c`.`name` ASC separator '; ') AS `film_info` from (((`sakila`.`actor` `a` left join `sakila`.`film_actor` `fa` on((`a`.`actor_id` = `fa`.`actor_id`))) left join `sakila`.`film_category` `fc` on((`fa`.`film_id` = `fc`.`film_id`))) left join `sakila`.`category` `c` on((`fc`.`category_id` = `c`.`category_id`))) group by `a`.`actor_id`,`a`.`first_name`,`a`.`last_name`",
+      "target_ddl": "CREATE VIEW \"actor_info\" AS\nWITH actor_cat AS (\n    SELECT a.\"actor_id\",\n           a.\"first_name\",\n           a.\"last_name\",\n           c.\"name\" AS cat_name,\n           STRING_AGG(f.\"title\", ', ' ORDER BY f.\"title\") AS titles\n    FROM \"actor\" a\n    LEFT JOIN \"film_actor\" fa ON a.\"actor_id\" = fa.\"actor_id\"\n    LEFT JOIN \"film_category\" fc ON fa.\"film_id\" = fc.\"film_id\"\n    LEFT JOIN \"category\" c ON fc.\"category_id\" = c.\"category_id\"\n    LEFT JOIN \"film\" f ON fc.\"film_id\" = f.\"film_id\"\n    GROUP BY a.\"actor_id\", a.\"first_name\", a.\"last_name\", c.\"name\"\n)\nSELECT actor_id,\n       first_name,\n       last_name,\n       STRING_AGG(cat_name || ': ' || titles, '; ' ORDER BY cat_name) AS film_info\nFROM actor_cat\nGROUP BY actor_id, first_name, last_name;",
+      "type_mappings": [
+        {
+          "method": "LLM",
+          "model": "openai/gpt-oss-120b"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\views\\actor_info.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "_deferred_fks",
+      "object_type": "constraint",
+      "source_ddl": "Circular FK dependencies",
+      "target_ddl": "ALTER TABLE \"address\" ADD CONSTRAINT \"fk_address_city\" \n    FOREIGN KEY (\"city_id\") REFERENCES \"city\" (\"city_id\");\n\nALTER TABLE \"city\" ADD CONSTRAINT \"fk_city_country\" \n    FOREIGN KEY (\"country_id\") REFERENCES \"country\" (\"country_id\");\n\nALTER TABLE \"customer\" ADD CONSTRAINT \"fk_customer_address\" \n    FOREIGN KEY (\"address_id\") REFERENCES \"address\" (\"address_id\");\n\nALTER TABLE \"customer\" ADD CONSTRAINT \"fk_customer_store\" \n    FOREIGN KEY (\"store_id\") REFERENCES \"store\" (\"store_id\");\n\nALTER TABLE \"film\" ADD CONSTRAINT \"fk_film_language\" \n    FOREIGN KEY (\"language_id\") REFERENCES \"language\" (\"language_id\");\n\nALTER TABLE \"film\" ADD CONSTRAINT \"fk_film_language_original\" \n    FOREIGN KEY (\"original_language_id\") REFERENCES \"language\" (\"language_id\");\n\nALTER TABLE \"film_actor\" ADD CONSTRAINT \"fk_film_actor_actor\" \n    FOREIGN KEY (\"actor_id\") REFERENCES \"actor\" (\"actor_id\");\n\nALTER TABLE \"film_actor\" ADD CONSTRAINT \"fk_film_actor_film\" \n    FOREIGN KEY (\"film_id\") REFERENCES \"film\" (\"film_id\");\n\nALTER TABLE \"film_category\" ADD CONSTRAINT \"fk_film_category_category\" \n    FOREIGN KEY (\"category_id\") REFERENCES \"category\" (\"category_id\");\n\nALTER TABLE \"film_category\" ADD CONSTRAINT \"fk_film_category_film\" \n    FOREIGN KEY (\"film_id\") REFERENCES \"film\" (\"film_id\");\n\nALTER TABLE \"inventory\" ADD CONSTRAINT \"fk_inventory_film\" \n    FOREIGN KEY (\"film_id\") REFERENCES \"film\" (\"film_id\");\n\nALTER TABLE \"inventory\" ADD CONSTRAINT \"fk_inventory_store\" \n    FOREIGN KEY (\"store_id\") REFERENCES \"store\" (\"store_id\");\n\nALTER TABLE \"payment\" ADD CONSTRAINT \"fk_payment_customer\" \n    FOREIGN KEY (\"customer_id\") REFERENCES \"customer\" (\"customer_id\");\n\nALTER TABLE \"payment\" ADD CONSTRAINT \"fk_payment_rental\" \n    FOREIGN KEY (\"rental_id\") REFERENCES \"rental\" (\"rental_id\");\n\nALTER TABLE \"payment\" ADD CONSTRAINT \"fk_payment_staff\" \n    FOREIGN KEY (\"staff_id\") REFERENCES \"staff\" (\"staff_id\");\n\nALTER TABLE \"rental\" ADD CONSTRAINT \"fk_rental_customer\" \n    FOREIGN KEY (\"customer_id\") REFERENCES \"customer\" (\"customer_id\");\n\nALTER TABLE \"rental\" ADD CONSTRAINT \"fk_rental_inventory\" \n    FOREIGN KEY (\"inventory_id\") REFERENCES \"inventory\" (\"inventory_id\");\n\nALTER TABLE \"rental\" ADD CONSTRAINT \"fk_rental_staff\" \n    FOREIGN KEY (\"staff_id\") REFERENCES \"staff\" (\"staff_id\");\n\nALTER TABLE \"staff\" ADD CONSTRAINT \"fk_staff_address\" \n    FOREIGN KEY (\"address_id\") REFERENCES \"address\" (\"address_id\");\n\nALTER TABLE \"staff\" ADD CONSTRAINT \"fk_staff_store\" \n    FOREIGN KEY (\"store_id\") REFERENCES \"store\" (\"store_id\");\n\nALTER TABLE \"store\" ADD CONSTRAINT \"fk_store_address\" \n    FOREIGN KEY (\"address_id\") REFERENCES \"address\" (\"address_id\");\n\nALTER TABLE \"store\" ADD CONSTRAINT \"fk_store_staff\" \n    FOREIGN KEY (\"manager_staff_id\") REFERENCES \"staff\" (\"staff_id\");",
+      "type_mappings": [
+        {
+          "method": "generated"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\deferred_fks.sql",
+      "status": "pending"
+    },
+    {
+      "object_name": "_indexes",
+      "object_type": "index",
+      "source_ddl": "All table indexes",
+      "target_ddl": "CREATE INDEX \"idx_actor_last_name\" ON \"actor\" (\"last_name\");\nCREATE INDEX \"idx_address_city_id\" ON \"address\" (\"city_id\");\nCREATE INDEX \"idx_address_location\" ON \"address\" (\"location\");\nCREATE INDEX \"idx_city_country_id\" ON \"city\" (\"country_id\");\nCREATE INDEX \"idx_customer_address_id\" ON \"customer\" (\"address_id\");\nCREATE INDEX \"idx_customer_store_id\" ON \"customer\" (\"store_id\");\nCREATE INDEX \"idx_customer_last_name\" ON \"customer\" (\"last_name\");\nCREATE INDEX \"idx_film_language_id\" ON \"film\" (\"language_id\");\nCREATE INDEX \"idx_film_original_language_id\" ON \"film\" (\"original_language_id\");\nCREATE INDEX \"idx_film_title\" ON \"film\" (\"title\");\nCREATE INDEX \"idx_film_actor_film_id\" ON \"film_actor\" (\"film_id\");\nCREATE INDEX \"fk_film_category_category\" ON \"film_category\" (\"category_id\");\nCREATE INDEX \"idx_film_text_title_description\" ON \"film_text\" (\"title\", \"description\");\nCREATE INDEX \"idx_inventory_film_id\" ON \"inventory\" (\"film_id\");\nCREATE INDEX \"idx_inventory_store_id_film_id\" ON \"inventory\" (\"store_id\", \"film_id\");\nCREATE INDEX \"fk_payment_rental\" ON \"payment\" (\"rental_id\");\nCREATE INDEX \"idx_payment_customer_id\" ON \"payment\" (\"customer_id\");\nCREATE INDEX \"idx_payment_staff_id\" ON \"payment\" (\"staff_id\");\nCREATE INDEX \"idx_rental_customer_id\" ON \"rental\" (\"customer_id\");\nCREATE INDEX \"idx_rental_inventory_id\" ON \"rental\" (\"inventory_id\");\nCREATE INDEX \"idx_rental_staff_id\" ON \"rental\" (\"staff_id\");\nCREATE UNIQUE INDEX \"rental_date\" ON \"rental\" (\"rental_date\", \"inventory_id\", \"customer_id\");\nCREATE INDEX \"idx_staff_address_id\" ON \"staff\" (\"address_id\");\nCREATE INDEX \"idx_staff_store_id\" ON \"staff\" (\"store_id\");\nCREATE INDEX \"idx_store_address_id\" ON \"store\" (\"address_id\");\nCREATE UNIQUE INDEX \"idx_store_unique_manager\" ON \"store\" (\"manager_staff_id\");",
+      "type_mappings": [
+        {
+          "method": "generated"
+        }
+      ],
+      "file_path": "artifacts\\ddl\\indexes.sql",
+      "status": "pending"
+    }
+  ],
+  "_artifact_metadata": {
+    "created_at": "2026-01-23T15:14:13.120979",
+    "version": "1.0"
+  }
+}

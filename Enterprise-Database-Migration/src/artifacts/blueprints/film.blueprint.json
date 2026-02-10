@@ -1,0 +1,253 @@
+{
+  "table_name": "film",
+  "all_tables_in_database": [
+    "actor",
+    "address",
+    "category",
+    "city",
+    "country",
+    "customer",
+    "film",
+    "film_actor",
+    "film_category",
+    "film_text",
+    "inventory",
+    "language",
+    "payment",
+    "rental",
+    "staff",
+    "store"
+  ],
+  "schema": {
+    "columns": [
+      {
+        "name": "film_id",
+        "mysql_type": "SMALLINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": true
+      },
+      {
+        "name": "title",
+        "mysql_type": "VARCHAR(128)",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "description",
+        "mysql_type": "TEXT",
+        "nullable": true,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "release_year",
+        "mysql_type": "YEAR",
+        "nullable": true,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "language_id",
+        "mysql_type": "TINYINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "original_language_id",
+        "mysql_type": "TINYINT",
+        "nullable": true,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "rental_duration",
+        "mysql_type": "TINYINT",
+        "nullable": false,
+        "default": "'3'",
+        "autoincrement": false
+      },
+      {
+        "name": "rental_rate",
+        "mysql_type": "DECIMAL(4, 2)",
+        "nullable": false,
+        "default": "'4.99'",
+        "autoincrement": false
+      },
+      {
+        "name": "length",
+        "mysql_type": "SMALLINT",
+        "nullable": true,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "replacement_cost",
+        "mysql_type": "DECIMAL(5, 2)",
+        "nullable": false,
+        "default": "'19.99'",
+        "autoincrement": false
+      },
+      {
+        "name": "rating",
+        "mysql_type": "ENUM",
+        "nullable": true,
+        "default": "'G'",
+        "autoincrement": false
+      },
+      {
+        "name": "special_features",
+        "mysql_type": "SET",
+        "nullable": true,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "last_update",
+        "mysql_type": "TIMESTAMP",
+        "nullable": false,
+        "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+        "autoincrement": false
+      }
+    ],
+    "primary_key": [
+      "film_id"
+    ],
+    "row_count": 1000
+  },
+  "indexes": [
+    {
+      "name": "idx_fk_language_id",
+      "columns": [
+        "language_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "idx_fk_original_language_id",
+      "columns": [
+        "original_language_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "idx_title",
+      "columns": [
+        "title"
+      ],
+      "unique": false
+    }
+  ],
+  "foreign_keys": {
+    "outgoing": [
+      {
+        "name": "fk_film_language",
+        "columns": [
+          "language_id"
+        ],
+        "references_table": "language",
+        "references_columns": [
+          "language_id"
+        ],
+        "is_deferred": false
+      },
+      {
+        "name": "fk_film_language_original",
+        "columns": [
+          "original_language_id"
+        ],
+        "references_table": "language",
+        "references_columns": [
+          "language_id"
+        ],
+        "is_deferred": false
+      }
+    ],
+    "incoming": [
+      {
+        "from_table": "film_actor"
+      },
+      {
+        "from_table": "film_category"
+      },
+      {
+        "from_table": "inventory"
+      }
+    ],
+    "deferred": []
+  },
+  "constraints": [],
+  "dependencies": {
+    "depends_on": [
+      "language"
+    ],
+    "depended_by": [
+      "inventory",
+      "film_actor",
+      "film_category"
+    ],
+    "has_circular_fk": false
+  },
+  "related_views": [
+    {
+      "name": "film_list",
+      "definition": "select `sakila`.`film`.`film_id` AS `FID`,`sakila`.`film`.`title` AS `title`,`sakila`.`film`.`description` AS `description`,`sakila`.`category`.`name` AS `category`,`sakila`.`film`.`rental_rate` AS `price`,`sakila`.`film`.`length` AS `length`,`sakila`.`film`.`rating` AS `rating`,group_concat(concat(`sakila`.`actor`.`first_name`,' ',`sakila`.`actor`.`last_name`) separator ', ') AS `actors` from ((((`sakila`.`film` left join `sakila`.`film_category` on((`sakila`.`film_category`.`film_id` = `sakila"
+    },
+    {
+      "name": "nicer_but_slower_film_list",
+      "definition": "select `sakila`.`film`.`film_id` AS `FID`,`sakila`.`film`.`title` AS `title`,`sakila`.`film`.`description` AS `description`,`sakila`.`category`.`name` AS `category`,`sakila`.`film`.`rental_rate` AS `price`,`sakila`.`film`.`length` AS `length`,`sakila`.`film`.`rating` AS `rating`,group_concat(concat(concat(upper(substr(`sakila`.`actor`.`first_name`,1,1)),lower(substr(`sakila`.`actor`.`first_name`,2,length(`sakila`.`actor`.`first_name`))),' ',concat(upper(substr(`sakila`.`actor`.`last_name`,1,1)),"
+    },
+    {
+      "name": "sales_by_film_category",
+      "definition": "select `c`.`name` AS `category`,sum(`p`.`amount`) AS `total_sales` from (((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`film` `f` on((`i`.`film_id` = `f`.`film_id`))) join `sakila`.`film_category` `fc` on((`f`.`film_id` = `fc`.`film_id`))) join `sakila`.`category` `c` on((`fc`.`category_id` = `c`.`category_id`))) group by `c`.`name` order by `total_sales` de"
+    },
+    {
+      "name": "actor_info",
+      "definition": "select `a`.`actor_id` AS `actor_id`,`a`.`first_name` AS `first_name`,`a`.`last_name` AS `last_name`,group_concat(distinct concat(`c`.`name`,': ',(select group_concat(`f`.`title` order by `f`.`title` ASC separator ', ') from ((`sakila`.`film` `f` join `sakila`.`film_category` `fc` on((`f`.`film_id` = `fc`.`film_id`))) join `sakila`.`film_actor` `fa` on((`f`.`film_id` = `fa`.`film_id`))) where ((`fc`.`category_id` = `c`.`category_id`) and (`fa`.`actor_id` = `a`.`actor_id`)))) order by `c`.`name` A"
+    }
+  ],
+  "related_triggers": [
+    {
+      "name": "ins_film",
+      "timing": "AFTER",
+      "event": "INSERT",
+      "source": "BEGIN\n    INSERT INTO film_text (film_id, title, description)\n        VALUES (new.film_id, new.title, new.description);\n  END"
+    },
+    {
+      "name": "upd_film",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "source": "BEGIN\n    IF (old.title != new.title) OR (old.description != new.description) OR (old.film_id != new.film_id)\n    THEN\n        UPDATE film_text\n            SET title=new.title,\n                description=new.description,\n                film_id=new.film_id\n        WHERE film_id=old.film_id;\n    END"
+    },
+    {
+      "name": "del_film",
+      "timing": "AFTER",
+      "event": "DELETE",
+      "source": "BEGIN\n    DELETE FROM film_text WHERE film_id = old.film_id;\n  END"
+    }
+  ],
+  "related_procedures": [
+    {
+      "name": "get_customer_balance",
+      "type": "function",
+      "source": "CREATE DEFINER=`root`@`localhost` FUNCTION `get_customer_balance`(p_customer_id INT, p_effective_date DATETIME) RETURNS decimal(5,2)\n    READS SQL DATA\n    DETERMINISTIC\nBEGIN\n\n       #OK, WE NEED TO CALCULATE THE CURRENT BALANCE GIVEN A CUSTOMER_ID AND A DATE\n       #THAT WE WANT THE BALANCE TO BE "
+    },
+    {
+      "name": "film_in_stock",
+      "type": "procedure",
+      "source": "CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)\n    READS SQL DATA\nBEGIN\n     SELECT inventory_id\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND inventory_in_stock(inventory_id);\n\n     "
+    },
+    {
+      "name": "film_not_in_stock",
+      "type": "procedure",
+      "source": "CREATE DEFINER=`root`@`localhost` PROCEDURE `film_not_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)\n    READS SQL DATA\nBEGIN\n     SELECT inventory_id\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND NOT inventory_in_stock(inventory_id)"
+    }
+  ],
+  "conversion_hints": {
+    "use_singular_table_names": true,
+    "index_naming": "idx_film_{column_name}",
+    "fk_naming": "fk_film_{referenced_table}"
+  }
+}

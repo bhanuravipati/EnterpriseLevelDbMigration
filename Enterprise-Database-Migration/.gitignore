@@ -1,0 +1,84 @@
+# --- Python Standard ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Virtual Environments ---
+# Common names for virtual envs
+venv/
+env/
+.env/
+.venv/
+env.bak/
+venv.bak/
+
+# --- Environment Variables & Secrets (CRITICAL) ---
+# Never commit database credentials or API keys
+.env
+.env.local
+.env.*.local
+.secrets
+
+# --- Database & Migrations ---
+# Ignore local SQLite dbs if you use them for testing before Postgres
+*.sqlite3
+*.db
+*.db-journal
+data/airport-db
+
+# Ignore specific migration artifacts if they are auto-generated and strictly local
+# (Usually you DO commit migration scripts, but ignore local schema dumps if strictly for dev)
+schema_dump.sql
+db_backup/
+
+# --- AI & Large Files ---
+# Vector stores and local model weights (too large for git)
+models/
+weights/
+*.h5
+*.pth
+*.pt
+*.onnx
+*.safetensors
+chroma_db/
+faiss_index/
+langchain_cache/
+
+# --- Logs & Testing ---
+*.log
+celerybeat-schedule
+celerybeat.pid
+coverage.xml
+*.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# --- IDE & Editors ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# video file
+*.mp4

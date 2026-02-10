@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "total_checks": 250,
+  "passed_checks": 245,
+  "failed_checks": 5,
+  "issues": [
+    {
+      "severity": "warning",
+      "category": "index",
+      "table": "city",
+      "message": "Index count differs: source=1, target=0",
+      "source": "1",
+      "target": "0"
+    },
+    {
+      "severity": "warning",
+      "category": "index",
+      "table": "customer",
+      "message": "Index count differs: source=3, target=0",
+      "source": "3",
+      "target": "0"
+    },
+    {
+      "severity": "warning",
+      "category": "index",
+      "table": "film_actor",
+      "message": "Index count differs: source=1, target=0",
+      "source": "1",
+      "target": "0"
+    },
+    {
+      "severity": "warning",
+      "category": "index",
+      "table": "film_category",
+      "message": "Index count differs: source=1, target=0",
+      "source": "1",
+      "target": "0"
+    },
+    {
+      "severity": "warning",
+      "category": "index",
+      "table": "film_text",
+      "message": "Index count differs: source=1, target=0",
+      "source": "1",
+      "target": "0"
+    }
+  ]
+}

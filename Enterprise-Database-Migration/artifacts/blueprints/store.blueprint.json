@@ -1,0 +1,174 @@
+{
+  "table_name": "store",
+  "all_tables_in_database": [
+    "actor",
+    "address",
+    "category",
+    "city",
+    "country",
+    "customer",
+    "film",
+    "film_actor",
+    "film_category",
+    "film_text",
+    "inventory",
+    "language",
+    "payment",
+    "rental",
+    "staff",
+    "store"
+  ],
+  "schema": {
+    "columns": [
+      {
+        "name": "store_id",
+        "mysql_type": "TINYINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": true
+      },
+      {
+        "name": "manager_staff_id",
+        "mysql_type": "TINYINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "address_id",
+        "mysql_type": "SMALLINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "last_update",
+        "mysql_type": "TIMESTAMP",
+        "nullable": false,
+        "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+        "autoincrement": false
+      }
+    ],
+    "primary_key": [
+      "store_id"
+    ],
+    "row_count": 2
+  },
+  "indexes": [
+    {
+      "name": "idx_fk_address_id",
+      "columns": [
+        "address_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "idx_unique_manager",
+      "columns": [
+        "manager_staff_id"
+      ],
+      "unique": true
+    }
+  ],
+  "foreign_keys": {
+    "outgoing": [
+      {
+        "name": "fk_store_address",
+        "columns": [
+          "address_id"
+        ],
+        "references_table": "address",
+        "references_columns": [
+          "address_id"
+        ],
+        "is_deferred": false
+      },
+      {
+        "name": "fk_store_staff",
+        "columns": [
+          "manager_staff_id"
+        ],
+        "references_table": "staff",
+        "references_columns": [
+          "staff_id"
+        ],
+        "is_deferred": true
+      }
+    ],
+    "incoming": [
+      {
+        "from_table": "customer"
+      },
+      {
+        "from_table": "inventory"
+      },
+      {
+        "from_table": "staff"
+      }
+    ],
+    "deferred": [
+      {
+        "name": "fk_store_staff",
+        "columns": [
+          "manager_staff_id"
+        ],
+        "references_table": "staff",
+        "references_columns": [
+          "staff_id"
+        ],
+        "is_deferred": true
+      }
+    ]
+  },
+  "constraints": [],
+  "dependencies": {
+    "depends_on": [
+      "address",
+      "staff"
+    ],
+    "depended_by": [
+<<<<<<< HEAD
+      "customer",
+      "staff",
+      "inventory"
+=======
+      "inventory",
+      "staff",
+      "customer"
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+    ],
+    "has_circular_fk": true
+  },
+  "related_views": [
+    {
+      "name": "customer_list",
+      "definition": "select `cu`.`customer_id` AS `ID`,concat(`cu`.`first_name`,' ',`cu`.`last_name`) AS `name`,`a`.`address` AS `address`,`a`.`postal_code` AS `zip code`,`a`.`phone` AS `phone`,`sakila`.`city`.`city` AS `city`,`sakila`.`country`.`country` AS `country`,if(`cu`.`active`,'active','') AS `notes`,`cu`.`store_id` AS `SID` from (((`sakila`.`customer` `cu` join `sakila`.`address` `a` on((`cu`.`address_id` = `a`.`address_id`))) join `sakila`.`city` on((`a`.`city_id` = `sakila`.`city`.`city_id`))) join `sakil"
+    },
+    {
+      "name": "staff_list",
+      "definition": "select `s`.`staff_id` AS `ID`,concat(`s`.`first_name`,' ',`s`.`last_name`) AS `name`,`a`.`address` AS `address`,`a`.`postal_code` AS `zip code`,`a`.`phone` AS `phone`,`sakila`.`city`.`city` AS `city`,`sakila`.`country`.`country` AS `country`,`s`.`store_id` AS `SID` from (((`sakila`.`staff` `s` join `sakila`.`address` `a` on((`s`.`address_id` = `a`.`address_id`))) join `sakila`.`city` on((`a`.`city_id` = `sakila`.`city`.`city_id`))) join `sakila`.`country` on((`sakila`.`city`.`country_id` = `saki"
+    },
+    {
+      "name": "sales_by_store",
+      "definition": "select concat(`c`.`city`,',',`cy`.`country`) AS `store`,concat(`m`.`first_name`,' ',`m`.`last_name`) AS `manager`,sum(`p`.`amount`) AS `total_sales` from (((((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`store` `s` on((`i`.`store_id` = `s`.`store_id`))) join `sakila`.`address` `a` on((`s`.`address_id` = `a`.`address_id`))) join `sakila`.`city` `c` on((`a`.`c"
+    }
+  ],
+  "related_triggers": [],
+  "related_procedures": [
+    {
+      "name": "film_in_stock",
+      "type": "procedure",
+      "source": "CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)\n    READS SQL DATA\nBEGIN\n     SELECT inventory_id\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND inventory_in_stock(inventory_id);\n\n     "
+    },
+    {
+      "name": "film_not_in_stock",
+      "type": "procedure",
+      "source": "CREATE DEFINER=`root`@`localhost` PROCEDURE `film_not_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)\n    READS SQL DATA\nBEGIN\n     SELECT inventory_id\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND NOT inventory_in_stock(inventory_id)"
+    }
+  ],
+  "conversion_hints": {
+    "use_singular_table_names": true,
+    "index_naming": "idx_store_{column_name}",
+    "fk_naming": "fk_store_{referenced_table}"
+  }
+}

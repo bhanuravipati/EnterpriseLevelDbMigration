@@ -1,0 +1,160 @@
+{
+  "table_name": "inventory",
+  "all_tables_in_database": [
+    "actor",
+    "address",
+    "category",
+    "city",
+    "country",
+    "customer",
+    "film",
+    "film_actor",
+    "film_category",
+    "film_text",
+    "inventory",
+    "language",
+    "payment",
+    "rental",
+    "staff",
+    "store"
+  ],
+  "schema": {
+    "columns": [
+      {
+        "name": "inventory_id",
+        "mysql_type": "MEDIUMINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": true
+      },
+      {
+        "name": "film_id",
+        "mysql_type": "SMALLINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "store_id",
+        "mysql_type": "TINYINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "last_update",
+        "mysql_type": "TIMESTAMP",
+        "nullable": false,
+        "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+        "autoincrement": false
+      }
+    ],
+    "primary_key": [
+      "inventory_id"
+    ],
+    "row_count": 4581
+  },
+  "indexes": [
+    {
+      "name": "idx_fk_film_id",
+      "columns": [
+        "film_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "idx_store_id_film_id",
+      "columns": [
+        "store_id",
+        "film_id"
+      ],
+      "unique": false
+    }
+  ],
+  "foreign_keys": {
+    "outgoing": [
+      {
+        "name": "fk_inventory_film",
+        "columns": [
+          "film_id"
+        ],
+        "references_table": "film",
+        "references_columns": [
+          "film_id"
+        ],
+        "is_deferred": false
+      },
+      {
+        "name": "fk_inventory_store",
+        "columns": [
+          "store_id"
+        ],
+        "references_table": "store",
+        "references_columns": [
+          "store_id"
+        ],
+        "is_deferred": false
+      }
+    ],
+    "incoming": [
+      {
+        "from_table": "rental"
+      }
+    ],
+    "deferred": []
+  },
+  "constraints": [],
+  "dependencies": {
+    "depends_on": [
+      "store",
+      "film"
+    ],
+    "depended_by": [
+      "rental"
+    ],
+    "has_circular_fk": false
+  },
+  "related_views": [
+    {
+      "name": "sales_by_store",
+      "definition": "select concat(`c`.`city`,',',`cy`.`country`) AS `store`,concat(`m`.`first_name`,' ',`m`.`last_name`) AS `manager`,sum(`p`.`amount`) AS `total_sales` from (((((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`store` `s` on((`i`.`store_id` = `s`.`store_id`))) join `sakila`.`address` `a` on((`s`.`address_id` = `a`.`address_id`))) join `sakila`.`city` `c` on((`a`.`c"
+    },
+    {
+      "name": "sales_by_film_category",
+      "definition": "select `c`.`name` AS `category`,sum(`p`.`amount`) AS `total_sales` from (((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`film` `f` on((`i`.`film_id` = `f`.`film_id`))) join `sakila`.`film_category` `fc` on((`f`.`film_id` = `fc`.`film_id`))) join `sakila`.`category` `c` on((`fc`.`category_id` = `c`.`category_id`))) group by `c`.`name` order by `total_sales` de"
+    }
+  ],
+  "related_triggers": [],
+  "related_procedures": [
+    {
+      "name": "get_customer_balance",
+      "type": "function",
+      "source": "CREATE DEFINER=`root`@`localhost` FUNCTION `get_customer_balance`(p_customer_id INT, p_effective_date DATETIME) RETURNS decimal(5,2)\n    READS SQL DATA\n    DETERMINISTIC\nBEGIN\n\n       #OK, WE NEED TO CALCULATE THE CURRENT BALANCE GIVEN A CUSTOMER_ID AND A DATE\n       #THAT WE WANT THE BALANCE TO BE "
+    },
+    {
+      "name": "inventory_held_by_customer",
+      "type": "function",
+      "source": "CREATE DEFINER=`root`@`localhost` FUNCTION `inventory_held_by_customer`(p_inventory_id INT) RETURNS int\n    READS SQL DATA\nBEGIN\n  DECLARE v_customer_id INT;\n  DECLARE EXIT HANDLER FOR NOT FOUND RETURN NULL;\n\n  SELECT customer_id INTO v_customer_id\n  FROM rental\n  WHERE return_date IS NULL\n  AND inv"
+    },
+    {
+      "name": "inventory_in_stock",
+      "type": "function",
+      "source": "CREATE DEFINER=`root`@`localhost` FUNCTION `inventory_in_stock`(p_inventory_id INT) RETURNS tinyint(1)\n    READS SQL DATA\nBEGIN\n    DECLARE v_rentals INT;\n    DECLARE v_out     INT;\n\n    #AN ITEM IS IN-STOCK IF THERE ARE EITHER NO ROWS IN THE rental TABLE\n    #FOR THE ITEM OR ALL ROWS HAVE return_da"
+    },
+    {
+      "name": "film_in_stock",
+      "type": "procedure",
+      "source": "CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)\n    READS SQL DATA\nBEGIN\n     SELECT inventory_id\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND inventory_in_stock(inventory_id);\n\n     "
+    },
+    {
+      "name": "film_not_in_stock",
+      "type": "procedure",
+      "source": "CREATE DEFINER=`root`@`localhost` PROCEDURE `film_not_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)\n    READS SQL DATA\nBEGIN\n     SELECT inventory_id\n     FROM inventory\n     WHERE film_id = p_film_id\n     AND store_id = p_store_id\n     AND NOT inventory_in_stock(inventory_id)"
+    }
+  ],
+  "conversion_hints": {
+    "use_singular_table_names": true,
+    "index_naming": "idx_inventory_{column_name}",
+    "fk_naming": "fk_inventory_{referenced_table}"
+  }
+}

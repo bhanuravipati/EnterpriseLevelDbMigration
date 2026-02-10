@@ -1,0 +1,221 @@
+{
+  "target": "target",
+  "tables_migrated": 16,
+  "total_rows": 47268,
+  "validation": [
+    {
+      "table": "actor",
+      "source_count": 200,
+      "target_count": 200,
+      "match": true
+    },
+    {
+      "table": "category",
+      "source_count": 16,
+      "target_count": 16,
+      "match": true
+    },
+    {
+      "table": "country",
+      "source_count": 109,
+      "target_count": 109,
+      "match": true
+    },
+    {
+      "table": "film_text",
+      "source_count": 1000,
+      "target_count": 1000,
+      "match": true
+    },
+    {
+      "table": "language",
+      "source_count": 6,
+      "target_count": 6,
+      "match": true
+    },
+    {
+      "table": "city",
+      "source_count": 600,
+      "target_count": 600,
+      "match": true
+    },
+    {
+      "table": "film",
+      "source_count": 1000,
+      "target_count": 1000,
+      "match": true
+    },
+    {
+      "table": "address",
+      "source_count": 603,
+      "target_count": 603,
+      "match": true
+    },
+    {
+      "table": "film_actor",
+      "source_count": 5462,
+      "target_count": 5462,
+      "match": true
+    },
+    {
+      "table": "film_category",
+      "source_count": 1000,
+      "target_count": 1000,
+      "match": true
+    },
+    {
+      "table": "customer",
+      "source_count": 599,
+      "target_count": 599,
+      "match": true
+    },
+    {
+      "table": "inventory",
+      "source_count": 4581,
+      "target_count": 4581,
+      "match": true
+    },
+    {
+      "table": "payment",
+      "source_count": 16044,
+      "target_count": 16044,
+      "match": true
+    },
+    {
+      "table": "rental",
+      "source_count": 16044,
+      "target_count": 16044,
+      "match": true
+    },
+    {
+      "table": "staff",
+      "source_count": 2,
+      "target_count": 2,
+      "match": true
+    },
+    {
+      "table": "store",
+      "source_count": 2,
+      "target_count": 2,
+      "match": true
+    }
+  ],
+  "migration_results": [
+    {
+      "table": "actor",
+      "success": true,
+      "rows_migrated": 200,
+      "time_ms": 87.6302719116211,
+      "error": null
+    },
+    {
+      "table": "category",
+      "success": true,
+      "rows_migrated": 16,
+      "time_ms": 13.578176498413086,
+      "error": null
+    },
+    {
+      "table": "country",
+      "success": true,
+      "rows_migrated": 109,
+      "time_ms": 46.88096046447754,
+      "error": null
+    },
+    {
+      "table": "film_text",
+      "success": true,
+      "rows_migrated": 1000,
+      "time_ms": 346.78077697753906,
+      "error": null
+    },
+    {
+      "table": "language",
+      "success": true,
+      "rows_migrated": 6,
+      "time_ms": 10.06174087524414,
+      "error": null
+    },
+    {
+      "table": "city",
+      "success": true,
+      "rows_migrated": 600,
+      "time_ms": 332.0908546447754,
+      "error": null
+    },
+    {
+      "table": "film",
+      "success": true,
+      "rows_migrated": 1000,
+      "time_ms": 384.6874237060547,
+      "error": null
+    },
+    {
+      "table": "address",
+      "success": true,
+      "rows_migrated": 603,
+      "time_ms": 203.5667896270752,
+      "error": null
+    },
+    {
+      "table": "film_actor",
+      "success": true,
+      "rows_migrated": 5462,
+      "time_ms": 1936.549186706543,
+      "error": null
+    },
+    {
+      "table": "film_category",
+      "success": true,
+      "rows_migrated": 1000,
+      "time_ms": 288.7418270111084,
+      "error": null
+    },
+    {
+      "table": "customer",
+      "success": true,
+      "rows_migrated": 599,
+      "time_ms": 212.5086784362793,
+      "error": null
+    },
+    {
+      "table": "inventory",
+      "success": true,
+      "rows_migrated": 4581,
+      "time_ms": 1689.1627311706543,
+      "error": null
+    },
+    {
+      "table": "payment",
+      "success": true,
+      "rows_migrated": 16044,
+      "time_ms": 5795.464515686035,
+      "error": null
+    },
+    {
+      "table": "rental",
+      "success": true,
+      "rows_migrated": 16044,
+      "time_ms": 5550.883054733276,
+      "error": null
+    },
+    {
+      "table": "staff",
+      "success": true,
+      "rows_migrated": 2,
+      "time_ms": 53.99823188781738,
+      "error": null
+    },
+    {
+      "table": "store",
+      "success": true,
+      "rows_migrated": 2,
+      "time_ms": 8.276224136352539,
+      "error": null
+    }
+  ],
+  "_artifact_metadata": {
+    "created_at": "2026-01-27T16:34:37.992987",
+    "version": "1.0"
+  }
+}

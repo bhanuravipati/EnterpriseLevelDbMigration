@@ -1,0 +1,173 @@
+{
+  "table_name": "address",
+  "all_tables_in_database": [
+    "actor",
+    "address",
+    "category",
+    "city",
+    "country",
+    "customer",
+    "film",
+    "film_actor",
+    "film_category",
+    "film_text",
+    "inventory",
+    "language",
+    "payment",
+    "rental",
+    "staff",
+    "store"
+  ],
+  "schema": {
+    "columns": [
+      {
+        "name": "address_id",
+        "mysql_type": "SMALLINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": true
+      },
+      {
+        "name": "address",
+        "mysql_type": "VARCHAR(50)",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "address2",
+        "mysql_type": "VARCHAR(50)",
+        "nullable": true,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "district",
+        "mysql_type": "VARCHAR(20)",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "city_id",
+        "mysql_type": "SMALLINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "postal_code",
+        "mysql_type": "VARCHAR(10)",
+        "nullable": true,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "phone",
+        "mysql_type": "VARCHAR(20)",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "location",
+        "mysql_type": "NULL",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "last_update",
+        "mysql_type": "TIMESTAMP",
+        "nullable": false,
+        "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+        "autoincrement": false
+      }
+    ],
+    "primary_key": [
+      "address_id"
+    ],
+    "row_count": 603
+  },
+  "indexes": [
+    {
+      "name": "idx_fk_city_id",
+      "columns": [
+        "city_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "idx_location",
+      "columns": [
+        "location"
+      ],
+      "unique": false
+    }
+  ],
+  "foreign_keys": {
+    "outgoing": [
+      {
+        "name": "fk_address_city",
+        "columns": [
+          "city_id"
+        ],
+        "references_table": "city",
+        "references_columns": [
+          "city_id"
+        ],
+        "is_deferred": false
+      }
+    ],
+    "incoming": [
+      {
+        "from_table": "customer"
+      },
+      {
+        "from_table": "staff"
+      },
+      {
+        "from_table": "store"
+      }
+    ],
+    "deferred": []
+  },
+  "constraints": [],
+  "dependencies": {
+    "depends_on": [
+      "city"
+    ],
+    "depended_by": [
+      "store",
+<<<<<<< HEAD
+      "customer",
+      "staff"
+=======
+      "staff",
+      "customer"
+>>>>>>> 5b7a1235ba7ce790739964ce89fbce20f3df9c2b
+    ],
+    "has_circular_fk": false
+  },
+  "related_views": [
+    {
+      "name": "customer_list",
+      "definition": "select `cu`.`customer_id` AS `ID`,concat(`cu`.`first_name`,' ',`cu`.`last_name`) AS `name`,`a`.`address` AS `address`,`a`.`postal_code` AS `zip code`,`a`.`phone` AS `phone`,`sakila`.`city`.`city` AS `city`,`sakila`.`country`.`country` AS `country`,if(`cu`.`active`,'active','') AS `notes`,`cu`.`store_id` AS `SID` from (((`sakila`.`customer` `cu` join `sakila`.`address` `a` on((`cu`.`address_id` = `a`.`address_id`))) join `sakila`.`city` on((`a`.`city_id` = `sakila`.`city`.`city_id`))) join `sakil"
+    },
+    {
+      "name": "staff_list",
+      "definition": "select `s`.`staff_id` AS `ID`,concat(`s`.`first_name`,' ',`s`.`last_name`) AS `name`,`a`.`address` AS `address`,`a`.`postal_code` AS `zip code`,`a`.`phone` AS `phone`,`sakila`.`city`.`city` AS `city`,`sakila`.`country`.`country` AS `country`,`s`.`store_id` AS `SID` from (((`sakila`.`staff` `s` join `sakila`.`address` `a` on((`s`.`address_id` = `a`.`address_id`))) join `sakila`.`city` on((`a`.`city_id` = `sakila`.`city`.`city_id`))) join `sakila`.`country` on((`sakila`.`city`.`country_id` = `saki"
+    },
+    {
+      "name": "sales_by_store",
+      "definition": "select concat(`c`.`city`,',',`cy`.`country`) AS `store`,concat(`m`.`first_name`,' ',`m`.`last_name`) AS `manager`,sum(`p`.`amount`) AS `total_sales` from (((((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`store` `s` on((`i`.`store_id` = `s`.`store_id`))) join `sakila`.`address` `a` on((`s`.`address_id` = `a`.`address_id`))) join `sakila`.`city` `c` on((`a`.`c"
+    }
+  ],
+  "related_triggers": [],
+  "related_procedures": [],
+  "conversion_hints": {
+    "use_singular_table_names": true,
+    "index_naming": "idx_address_{column_name}",
+    "fk_naming": "fk_address_{referenced_table}"
+  }
+}

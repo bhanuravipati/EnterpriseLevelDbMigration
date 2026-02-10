@@ -1,0 +1,213 @@
+{
+  "table_name": "rental",
+  "all_tables_in_database": [
+    "actor",
+    "address",
+    "category",
+    "city",
+    "country",
+    "customer",
+    "film",
+    "film_actor",
+    "film_category",
+    "film_text",
+    "inventory",
+    "language",
+    "payment",
+    "rental",
+    "staff",
+    "store"
+  ],
+  "schema": {
+    "columns": [
+      {
+        "name": "rental_id",
+        "mysql_type": "INTEGER",
+        "nullable": false,
+        "default": null,
+        "autoincrement": true
+      },
+      {
+        "name": "rental_date",
+        "mysql_type": "DATETIME",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "inventory_id",
+        "mysql_type": "MEDIUMINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "customer_id",
+        "mysql_type": "SMALLINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "return_date",
+        "mysql_type": "DATETIME",
+        "nullable": true,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "staff_id",
+        "mysql_type": "TINYINT",
+        "nullable": false,
+        "default": null,
+        "autoincrement": false
+      },
+      {
+        "name": "last_update",
+        "mysql_type": "TIMESTAMP",
+        "nullable": false,
+        "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+        "autoincrement": false
+      }
+    ],
+    "primary_key": [
+      "rental_id"
+    ],
+    "row_count": 16044
+  },
+  "indexes": [
+    {
+      "name": "idx_fk_customer_id",
+      "columns": [
+        "customer_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "idx_fk_inventory_id",
+      "columns": [
+        "inventory_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "idx_fk_staff_id",
+      "columns": [
+        "staff_id"
+      ],
+      "unique": false
+    },
+    {
+      "name": "rental_date",
+      "columns": [
+        "rental_date",
+        "inventory_id",
+        "customer_id"
+      ],
+      "unique": true
+    }
+  ],
+  "foreign_keys": {
+    "outgoing": [
+      {
+        "name": "fk_rental_customer",
+        "columns": [
+          "customer_id"
+        ],
+        "references_table": "customer",
+        "references_columns": [
+          "customer_id"
+        ],
+        "is_deferred": false
+      },
+      {
+        "name": "fk_rental_inventory",
+        "columns": [
+          "inventory_id"
+        ],
+        "references_table": "inventory",
+        "references_columns": [
+          "inventory_id"
+        ],
+        "is_deferred": false
+      },
+      {
+        "name": "fk_rental_staff",
+        "columns": [
+          "staff_id"
+        ],
+        "references_table": "staff",
+        "references_columns": [
+          "staff_id"
+        ],
+        "is_deferred": false
+      }
+    ],
+    "incoming": [
+      {
+        "from_table": "payment"
+      }
+    ],
+    "deferred": []
+  },
+  "constraints": [],
+  "dependencies": {
+    "depends_on": [
+      "inventory",
+      "customer",
+      "staff"
+    ],
+    "depended_by": [
+      "payment"
+    ],
+    "has_circular_fk": false
+  },
+  "related_views": [
+    {
+      "name": "film_list",
+      "definition": "select `sakila`.`film`.`film_id` AS `FID`,`sakila`.`film`.`title` AS `title`,`sakila`.`film`.`description` AS `description`,`sakila`.`category`.`name` AS `category`,`sakila`.`film`.`rental_rate` AS `price`,`sakila`.`film`.`length` AS `length`,`sakila`.`film`.`rating` AS `rating`,group_concat(concat(`sakila`.`actor`.`first_name`,' ',`sakila`.`actor`.`last_name`) separator ', ') AS `actors` from ((((`sakila`.`film` left join `sakila`.`film_category` on((`sakila`.`film_category`.`film_id` = `sakila"
+    },
+    {
+      "name": "nicer_but_slower_film_list",
+      "definition": "select `sakila`.`film`.`film_id` AS `FID`,`sakila`.`film`.`title` AS `title`,`sakila`.`film`.`description` AS `description`,`sakila`.`category`.`name` AS `category`,`sakila`.`film`.`rental_rate` AS `price`,`sakila`.`film`.`length` AS `length`,`sakila`.`film`.`rating` AS `rating`,group_concat(concat(concat(upper(substr(`sakila`.`actor`.`first_name`,1,1)),lower(substr(`sakila`.`actor`.`first_name`,2,length(`sakila`.`actor`.`first_name`))),' ',concat(upper(substr(`sakila`.`actor`.`last_name`,1,1)),"
+    },
+    {
+      "name": "sales_by_store",
+      "definition": "select concat(`c`.`city`,',',`cy`.`country`) AS `store`,concat(`m`.`first_name`,' ',`m`.`last_name`) AS `manager`,sum(`p`.`amount`) AS `total_sales` from (((((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`store` `s` on((`i`.`store_id` = `s`.`store_id`))) join `sakila`.`address` `a` on((`s`.`address_id` = `a`.`address_id`))) join `sakila`.`city` `c` on((`a`.`c"
+    },
+    {
+      "name": "sales_by_film_category",
+      "definition": "select `c`.`name` AS `category`,sum(`p`.`amount`) AS `total_sales` from (((((`sakila`.`payment` `p` join `sakila`.`rental` `r` on((`p`.`rental_id` = `r`.`rental_id`))) join `sakila`.`inventory` `i` on((`r`.`inventory_id` = `i`.`inventory_id`))) join `sakila`.`film` `f` on((`i`.`film_id` = `f`.`film_id`))) join `sakila`.`film_category` `fc` on((`f`.`film_id` = `fc`.`film_id`))) join `sakila`.`category` `c` on((`fc`.`category_id` = `c`.`category_id`))) group by `c`.`name` order by `total_sales` de"
+    }
+  ],
+  "related_triggers": [
+    {
+      "name": "rental_date",
+      "timing": "BEFORE",
+      "event": "INSERT",
+      "source": "SET NEW.rental_date = NOW()"
+    }
+  ],
+  "related_procedures": [
+    {
+      "name": "get_customer_balance",
+      "type": "function",
+      "source": "CREATE DEFINER=`root`@`localhost` FUNCTION `get_customer_balance`(p_customer_id INT, p_effective_date DATETIME) RETURNS decimal(5,2)\n    READS SQL DATA\n    DETERMINISTIC\nBEGIN\n\n       #OK, WE NEED TO CALCULATE THE CURRENT BALANCE GIVEN A CUSTOMER_ID AND A DATE\n       #THAT WE WANT THE BALANCE TO BE "
+    },
+    {
+      "name": "inventory_held_by_customer",
+      "type": "function",
+      "source": "CREATE DEFINER=`root`@`localhost` FUNCTION `inventory_held_by_customer`(p_inventory_id INT) RETURNS int\n    READS SQL DATA\nBEGIN\n  DECLARE v_customer_id INT;\n  DECLARE EXIT HANDLER FOR NOT FOUND RETURN NULL;\n\n  SELECT customer_id INTO v_customer_id\n  FROM rental\n  WHERE return_date IS NULL\n  AND inv"
+    },
+    {
+      "name": "inventory_in_stock",
+      "type": "function",
+      "source": "CREATE DEFINER=`root`@`localhost` FUNCTION `inventory_in_stock`(p_inventory_id INT) RETURNS tinyint(1)\n    READS SQL DATA\nBEGIN\n    DECLARE v_rentals INT;\n    DECLARE v_out     INT;\n\n    #AN ITEM IS IN-STOCK IF THERE ARE EITHER NO ROWS IN THE rental TABLE\n    #FOR THE ITEM OR ALL ROWS HAVE return_da"
+    }
+  ],
+  "conversion_hints": {
+    "use_singular_table_names": true,
+    "index_naming": "idx_rental_{column_name}",
+    "fk_naming": "fk_rental_{referenced_table}"
+  }
+}

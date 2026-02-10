@@ -1,0 +1,115 @@
+{
+  "status": "success",
+  "schema_deployed": {
+    "success": true,
+    "objects_deployed": 83,
+    "errors": [],
+    "error": null
+  },
+  "data_deployed": {
+    "tables_migrated": 16,
+    "total_rows": 0
+  },
+  "validation": [
+    {
+      "table": "actor",
+      "source_count": 200,
+      "target_count": 200,
+      "match": true
+    },
+    {
+      "table": "category",
+      "source_count": 16,
+      "target_count": 16,
+      "match": true
+    },
+    {
+      "table": "country",
+      "source_count": 109,
+      "target_count": 109,
+      "match": true
+    },
+    {
+      "table": "film_text",
+      "source_count": 1000,
+      "target_count": 1000,
+      "match": true
+    },
+    {
+      "table": "language",
+      "source_count": 6,
+      "target_count": 6,
+      "match": true
+    },
+    {
+      "table": "city",
+      "source_count": 600,
+      "target_count": 600,
+      "match": true
+    },
+    {
+      "table": "film",
+      "source_count": 1000,
+      "target_count": 1000,
+      "match": true
+    },
+    {
+      "table": "address",
+      "source_count": 603,
+      "target_count": 603,
+      "match": true
+    },
+    {
+      "table": "film_actor",
+      "source_count": 5462,
+      "target_count": 5462,
+      "match": true
+    },
+    {
+      "table": "film_category",
+      "source_count": 1000,
+      "target_count": 1000,
+      "match": true
+    },
+    {
+      "table": "customer",
+      "source_count": 599,
+      "target_count": 599,
+      "match": true
+    },
+    {
+      "table": "inventory",
+      "source_count": 4581,
+      "target_count": 4581,
+      "match": true
+    },
+    {
+      "table": "payment",
+      "source_count": 16044,
+      "target_count": 16044,
+      "match": true
+    },
+    {
+      "table": "rental",
+      "source_count": 16044,
+      "target_count": 16044,
+      "match": true
+    },
+    {
+      "table": "staff",
+      "source_count": 2,
+      "target_count": 2,
+      "match": true
+    },
+    {
+      "table": "store",
+      "source_count": 2,
+      "target_count": 2,
+      "match": true
+    }
+  ],
+  "_artifact_metadata": {
+    "created_at": "2026-01-27T16:34:38.045583",
+    "version": "1.0"
+  }
+}
